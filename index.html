@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="styles.css"> 
 </head>
 <body>
-
+    <video autoplay muted loop id="bg-video">
+        <source src="wallpaper2 .mp4" type="video/mp4">
+    </video>
     <div class="desktop-icon" onclick="showAbout()">
         <div class="icon-img">📄</div>
         <div>Profile.txt</div>
@@ -25,11 +27,43 @@
         </div>
 
         <div class="menu-bar">
-            <div class="menu-item"><u>F</u>ile</div>
-            <div class="menu-item"><u>E</u>dit</div>
-            <div class="menu-item"><u>V</u>iew</div>
-            <div class="menu-item" onclick="showAbout()"><u>H</u>elp</div>
+    
+    <div class="menu-item-container">
+        <div class="menu-item" onclick="toggleMenu('file-menu', event)"><u>F</u>ile</div>
+        <div class="dropdown" id="file-menu">
+            <div class="dropdown-item" onclick="downloadResume()">
+                <span>Save As PDF...</span> <span class="shortcut">Ctrl+S</span>
+            </div>
+            <div class="dropdown-item" onclick="window.print()">
+                <span>Print...</span> <span class="shortcut">Ctrl+P</span>
+            </div>
+            <div class="dropdown-separator"></div>
+            <div class="dropdown-item" onclick="actuallyClose()">Exit</div>
         </div>
+    </div>
+
+    <div class="menu-item-container">
+        <div class="menu-item" onclick="toggleMenu('edit-menu', event)"><u>E</u>dit</div>
+        <div class="dropdown" id="edit-menu">
+            <div class="dropdown-item" onclick="copyEmail()">Copy Email</div>
+            <div class="dropdown-item" onclick="copyLink()">Copy Site Link</div>
+        </div>
+    </div>
+
+    <div class="menu-item-container">
+        <div class="menu-item" onclick="toggleMenu('view-menu', event)"><u>V</u>iew</div>
+        <div class="dropdown" id="view-menu">
+            <div class="dropdown-item" onclick="toggleMaximize()">Full Screen</div>
+            <div class="dropdown-item" onclick="minimizeWindow()">Minimize</div>
+            <div class="dropdown-separator"></div>
+            <div class="dropdown-item" onclick="location.reload()">Refresh</div>
+        </div>
+    </div>
+
+    <div class="menu-item-container">
+        <div class="menu-item" onclick="showAbout()"><u>H</u>elp</div>
+    </div>
+</div>
 
         <div class="window-body">
             
@@ -94,7 +128,7 @@
             </div>
 
              <div class="tab-content" id="tab-1">
-    <h2>🚀 PROJECTS</h2>
+    <h2>🧮 PROJECTS</h2>
 
     <div class="section-item">
         <div class="job-header">
@@ -265,6 +299,7 @@
             </div>
 
             <div class="tab-content" id="tab-3">
+               
                 <h2>🎓 EDUCATION</h2>
                 
                 <div class="section-item">
@@ -329,15 +364,15 @@
     <div class="modal" id="aboutModal">
         <div class="dialog">
             <div class="title-bar">
-                <div class="title-bar-text">About Profile.exe</div>
+                <div class="title-bar-text">About Profile.txt</div>
                 <div class="title-bar-controls">
                     <button onclick="closeAbout()">X</button>
                 </div>
             </div>
             <div class="dialog-body">
-                <h3>Resume Portfolio v1.0</h3>
-                <p>Built with HTML, CSS, and JavaScript</p>
-                <p>© 2024 Swarom Firagannavar</p>
+                <h3> Portfolio v?</h3>
+                <p>idk myself</p>
+                <p> Swarom Firagannavar</p>
                 <div class="dialog-buttons">
                     <button class="win-btn" onclick="closeAbout()">OK</button>
                 </div>
@@ -354,8 +389,8 @@
                 <p>Are you sure you want to close this window?</p>
                 <p>💡 Tip: You can still hire me!</p>
                 <div class="dialog-buttons">
-                    <button class="win-btn" onclick="closeCloseDialog()">No, Stay</button>
-                    <button class="win-btn" onclick="actuallyClose()">Yes, Exit</button>
+                    <button class="win-btn" onclick="closeCloseDialog()">No</button>
+                    <button class="win-btn" onclick="actuallyClose()">Yes</button>
                 </div>
             </div>
         </div>

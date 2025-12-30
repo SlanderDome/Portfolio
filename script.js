@@ -30,30 +30,49 @@ function switchTab(index) {
     if (contents[index]) contents[index].classList.add('active');
 }
 
-// ================= MODALS =================
+// ================= MODALS & MENUS =================
 function showAbout() {
     const modal = document.getElementById('aboutModal');
     if (modal) modal.classList.add('active');
 }
-
 function closeAbout() {
     const modal = document.getElementById('aboutModal');
     if (modal) modal.classList.remove('active');
 }
-
 function showCloseDialog() {
     const modal = document.getElementById('closeModal');
     if (modal) modal.classList.add('active');
 }
-
 function closeCloseDialog() {
     const modal = document.getElementById('closeModal');
     if (modal) modal.classList.remove('active');
 }
 
-// ================= WINDOW CONTROLS =================
+// Menu Functions
+function toggleMenu(menuId, event) {
+    event.stopPropagation();
+    closeAllMenus();
+    const menu = document.getElementById(menuId);
+    if (menu) menu.classList.toggle('show');
+}
+function closeAllMenus() {
+    document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('show'));
+}
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.menu-item')) closeAllMenus();
+});
 
-// ---------- MINIMIZE ----------
+// Edit Actions
+function copyEmail() {
+    navigator.clipboard.writeText("swarom66@gmail.com").then(() => alert("Email copied!"));
+    closeAllMenus();
+}
+function copyLink() {
+    navigator.clipboard.writeText(window.location.href).then(() => alert("Link copied!"));
+    closeAllMenus();
+}
+
+// ================= WINDOW CONTROLS =================
 function minimizeWindow() {
     if (!win) return;
     win.classList.add('minimized'); 
@@ -61,59 +80,40 @@ function minimizeWindow() {
     windowState = "minimized";
 }
 
-// ---------- RESTORE ----------
 function restoreWindow() {
     if (!win) return;
     win.classList.remove('minimized');
     win.style.display = 'block'; 
-    
     if (taskbarItem) taskbarItem.style.display = 'flex'; 
-
-    if (windowState === "minimized" || windowState === "closed") {
-        windowState = "normal";
-    }
+    if (windowState === "minimized" || windowState === "closed") windowState = "normal";
 }
 
-// ---------- TOGGLE MAXIMIZE ----------
 function toggleMaximize() {
     if (!win) return;
+    if (windowState === "minimized") restoreWindow();
 
-    // 1. If minimized, bring it back first
-    if (windowState === "minimized") {
-        restoreWindow();
-    }
-
-    // 2. If already maximized -> RESTORE to normal
     if (windowState === "maximized") {
-        win.style.position = ''; // Reset to default/dragged behavior
+        win.style.position = ''; 
         win.style.top = '';
         win.style.left = '';
-        win.style.width = '';    // Clears '100vw'
-        win.style.height = '';   // Clears height calc
+        win.style.width = '';
+        win.style.height = '';
         win.style.margin = '';   
-        
-        // IMPORTANT: Restore the CSS limit so it looks good again
-        win.style.maxWidth = ''; 
-
+        win.style.maxWidth = ''; // Restore limit
         windowState = "normal";
         return;
     }
 
-    // 3. Go MAXIMIZE
     win.style.position = 'fixed';
     win.style.top = '0';
     win.style.left = '0';
     win.style.width = '100vw';
     win.style.height = `calc(100vh - ${TASKBAR_HEIGHT}px)`;
     win.style.margin = '0'; 
-    
-    // IMPORTANT: Remove the CSS limit so it fills the screen
-    win.style.maxWidth = 'none'; 
-    
+    win.style.maxWidth = 'none'; // Remove limit
     windowState = "maximized";
 }
 
-// ---------- CLOSE ----------
 function actuallyClose() {
     if (!win) return;
     win.style.display = 'none'; 
@@ -122,48 +122,46 @@ function actuallyClose() {
     closeCloseDialog();
 }
 
-// ---------- OPEN FROM DESKTOP ----------
 function openFromDesktop() {
     restoreWindow();
-    // Center it nicely on re-open
-    win.style.top = '';
-    win.style.left = '';
-    win.style.position = ''; 
-    win.style.transform = ''; // Clear drag transforms if any
-    
+    // Reset positions so it doesn't open off-screen if it was dragged there
+    win.style.top = '10%'; 
+    win.style.left = '10%';
+    win.style.position = 'absolute'; 
     if(windowState === "maximized") toggleMaximize(); 
 }
 
-// ================= DRAG FUNCTIONALITY =================
+// ================= DRAG FUNCTIONALITY (UPDATED) =================
 function makeDraggable(element) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     
-    // The handle is the title bar
+    // UPDATED: Check if a title bar exists. If NOT, use the whole element as the handle.
     const header = element.querySelector('.title-bar');
-    
-    if (header) {
-        header.onmousedown = dragMouseDown;
-    }
+    const handle = header || element; 
+
+    handle.onmousedown = dragMouseDown;
 
     function dragMouseDown(e) {
         e = e || window.event;
         
-        // 1. Stop if window is maximized (Windows behavior)
-        if (windowState === 'maximized') return;
+        // 1. Stop if window is maximized
+        if (element.classList.contains('window') && windowState === 'maximized') return;
 
-        // 2. Prevent dragging if clicking buttons inside title bar
+        // 2. Prevent dragging if clicking buttons
         if (e.target.tagName === 'BUTTON') return;
 
         e.preventDefault();
 
-        // 3. Prepare for drag: switch from Flex/Relative to Absolute positioning
-        // This ensures the window stays exactly where it is visually, but becomes movable
-        const rect = element.getBoundingClientRect();
-        element.style.position = 'absolute';
-        element.style.margin = '0'; // Remove centering margins
-        element.style.top = rect.top + "px";
-        element.style.left = rect.left + "px";
-        element.style.transform = "none"; // Remove any CSS transforms used for centering
+        // 3. Switch to absolute positioning for dragging
+        // We do this check so we don't reset position if it's already dragged
+        const cssPosition = window.getComputedStyle(element).position;
+        if (cssPosition !== 'absolute' && cssPosition !== 'fixed') {
+             const rect = element.getBoundingClientRect();
+             element.style.position = 'absolute';
+             element.style.margin = '0';
+             element.style.top = rect.top + "px";
+             element.style.left = rect.left + "px";
+        }
 
         // 4. Get mouse start position
         pos3 = e.clientX;
@@ -189,7 +187,6 @@ function makeDraggable(element) {
     }
 
     function closeDragElement() {
-        // Stop moving when mouse button is released
         document.onmouseup = null;
         document.onmousemove = null;
     }
@@ -221,10 +218,24 @@ window.onload = () => {
     }
 };
 
-// ================= EVENT LISTENERS =================
+// ================= INITIALIZATION =================
 document.addEventListener('DOMContentLoaded', () => {
     
-    // 1. Window Controls
+    // 1. Initialize Window Drag
+    if (win) makeDraggable(win);
+
+    // 2. Initialize Desktop Icon Drag (NEW)
+    // Select ALL desktop icons in case you add more later
+    const icons = document.querySelectorAll('.desktop-icon');
+    icons.forEach(icon => {
+        makeDraggable(icon);
+        
+        // IMPORTANT: Switch to Double Click to open
+        icon.onclick = null; // Remove single click
+        icon.ondblclick = openFromDesktop; // Add double click
+    });
+
+    // 3. Button Wiring
     const minBtn = document.querySelector('[aria-label="Minimize"]');
     const maxBtn = document.querySelector('[aria-label="Maximize"]');
     const closeBtn = document.querySelector('[aria-label="Close"]');
@@ -232,13 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (minBtn) minBtn.addEventListener('click', minimizeWindow);
     if (maxBtn) maxBtn.addEventListener('click', toggleMaximize);
     if (closeBtn) closeBtn.addEventListener('click', showCloseDialog); 
-
-    // 2. Desktop Icon Logic
-    if (desktopIcon) desktopIcon.onclick = openFromDesktop;
-
-    // 3. INITIALIZE DRAG
-    if (win) makeDraggable(win);
-
+    
     // 4. Start Button
     const startBtn = document.querySelector('.start-btn');
     if (startBtn) {
