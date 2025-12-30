@@ -726,4 +726,88 @@
     background-color: rgba(0, 0, 128, 0.3); /* Transparent blue */
     border: 1px dotted white;
 }
+/* ================= MOBILE OPTIMIZATIONS ================= */
+@media (max-width: 768px) {
+    
+    body {
+        /* Remove padding to use full screen space */
+        padding: 10px; 
+        padding-bottom: 50px; /* Keep space for taskbar */
+        align-items: flex-start; /* Start from top, don't center vertically */
+    }
+
+    /* 1. Force the Window to be Full Width */
+    .window {
+        width: 100% !important;
+        height: auto;
+        min-height: 80vh; /* Take up most of the screen */
+        margin: 0;
+        max-width: none;
+        position: relative !important; /* Disable dragging positioning */
+        top: auto !important;
+        left: auto !important;
+        transform: none !important;
+    }
+
+    /* 2. Hide Desktop Icons (Too cluttered on phone) */
+    .desktop-icon {
+        display: none;
+    }
+
+    /* 3. Stack Job Headers (Date moves below Title) */
+    .job-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .date {
+        font-size: 0.8rem;
+        align-self: flex-start;
+        margin-bottom: 5px;
+    }
+
+    /* 4. Make Touch Targets Bigger */
+    .menu-item {
+        padding: 10px 15px; /* Easier to tap */
+    }
+
+    .win-btn {
+        padding: 10px;
+        flex: 1; /* Buttons stretch to fill width */
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    .btn-group {
+        flex-wrap: wrap; /* Allow buttons to stack */
+    }
+
+    /* 5. Adjust Text Sizing */
+    h1 {
+        font-size: 1.5rem; /* Smaller name */
+    }
+
+    .role {
+        font-size: 0.9rem;
+    }
+
+    /* 6. Tabs Scrollable */
+    .tabs {
+        overflow-x: auto; /* Allow side scrolling for tabs */
+        white-space: nowrap;
+        padding-bottom: 5px;
+    }
+    
+    .tab {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+    
+    /* 7. Hide Minimize/Maximize buttons on mobile (Not useful) */
+    .title-bar-controls button[aria-label="Minimize"],
+    .title-bar-controls button[aria-label="Maximize"] {
+        display: none;
+    }
+}
 
