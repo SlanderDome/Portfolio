@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume.exe</title>
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+
+    <div class="desktop-icon" onclick="showAbout()">
+        <div class="icon-img">📄</div>
+        <div>Profile.txt</div>
+    </div>
+
+    <div class="window">
+        
+        <div class="title-bar">
+            <div class="title-bar-text">C:\Resume\Profile.exe - [Professional Portfolio]</div>
+            <div class="title-bar-controls">
+                <button aria-label="Minimize">_</button>
+                <button aria-label="Maximize">□</button>
+                <button aria-label="Close">X</button>
+            </div>
+        </div>
+
+        <div class="menu-bar">
+            <div class="menu-item"><u>F</u>ile</div>
+            <div class="menu-item"><u>E</u>dit</div>
+            <div class="menu-item"><u>V</u>iew</div>
+            <div class="menu-item" onclick="showAbout()"><u>H</u>elp</div>
+        </div>
+
+        <div class="window-body">
+            
+            <header>
+                <h1>Swarom Firagannavar<span class="blinking-cursor"></span></h1>
+                <p class="role">Computer Engineering Student | Aspiring Software Engineer</p>
+
+                <div class="btn-group">
+                    <a href="https://github.com/SlanderDome" class="win-btn" target="_blank">
+                        <img src="github.svg" alt="" class="btn-icon"> GitHub
+                    </a>
+
+                    <a href="https://linkedin.com/in/your-linkedin" class="win-btn" target="_blank">
+                        <img src="icons.png" alt="" class="btn-icon"> LinkedIn
+                    </a>
+
+                    <a href="mailto:swarom66@gmail.com" class="win-btn">
+                        <img src="mail.png" alt="" class="btn-icon"> Email Me
+                    </a>
+                    
+                    <button class="win-btn" onclick="downloadResume()">💾 Download CV</button>
+                </div>
+            </header>
+
+            <hr>
+
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab(0)">Experience</div>
+                <div class="tab" onclick="switchTab(1)">Projects</div>
+                <div class="tab" onclick="switchTab(2)">Skills</div>
+                <div class="tab" onclick="switchTab(3)">Education</div>
+            </div>
+
+            <div class="tab-content active" id="tab-0">
+                <h2>💼 EXPERIENCE</h2>
+                
+                <div class="section-item">
+                    <div class="job-header">
+                        <div>
+                            <span class="job-title">Senior Developer</span> <span class="company">@ TechCorp</span>
+                        </div>
+                        <span class="date">2023 - Present</span>
+                    </div>
+                    <ul>
+                        <li>Rebuilt core legacy system using modern architecture, improving load times by 40%</li>
+                        <li>Led team of 5 developers in migrating monolithic application to microservices</li>
+                    </ul>
+                </div>
+
+                <div class="section-item">
+                    <div class="job-header">
+                        <div>
+                            <span class="job-title">Web Designer</span> <span class="company">@ CreativeStudio</span>
+                        </div>
+                        <span class="date">2021 - 2023</span>
+                    </div>
+                    <ul>
+                        <li>Designed user interfaces for 20+ high-profile clients</li>
+                        <li>Managed full frontend lifecycle from wireframes to production deployment</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-1">
+                <h2>🚀 PROJECTS</h2>
+
+                <div class="section-item">
+                    <div class="job-header">
+                        <span class="job-title">Crop Disease Detection</span>
+                    </div>
+                    <ul>
+                        <li>Built deep learning model to detect crop diseases from leaf images</li>
+                        <li>Used transfer learning and data augmentation to improve accuracy</li>
+                    </ul>
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">TensorFlow</span>
+                        <span class="tag">FastAPI</span>
+                    </div>
+                </div>
+
+                <div class="section-item">
+                    <div class="job-header">
+                        <span class="job-title">Term Track System</span>
+                    </div>
+                    <ul>
+                        <li>Course catalog filtering system with favorites using like feature</li>
+                        <li>Integrated external API for real-time course data</li>
+                    </ul>
+                    <div class="tags">
+                        <span class="tag">HTML/CSS</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">MySQL</span>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="tab-content" id="tab-2">
+                <h2>🧩 SKILLS</h2>
+                
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>JavaScript</span>
+                        <span></span>
+                    </div>
+                    <div class="code-bar">
+    <div class="code-track" style="animation-duration: 11s;">
+        <span class="code">const sum = (a, b) => a + b;</span>
+        <span class="code">let user = { name: "Swarom" };</span>
+        <span class="code">async function fetchData() {}</span>
+    </div>
+</div>
+
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>React</span>
+                        <span></span>
+                    </div>
+                    <div class="code-bar">
+    <div class="code-track" style="animation-duration: 11s;">
+        <span class="code">const [state, setState] = useState()</span>
+        <span class="code">useEffect(() => {}, [])</span>
+        <span class="code">&lt;Component /&gt;</span>
+    </div>
+</div>
+
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Java</span>
+                        <span></span>
+                    </div>
+                    <div class="code-bar">
+    <div class="code-track" style="animation-duration: 11s;">
+        <span class="code">public class Main {}</span>
+        <span class="code">public static void main(String[] args)</span>
+        <span class="code">System.out.println("Hello World");</span>
+        <span class="code">int sum = a + b;</span>
+        <span class="code">ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();</span>
+        <span class="code">if(user != null) {}</span>
+    </div>
+</div>
+
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Python </span>
+                        <span></span>
+                    </div>
+                    <div class="code-bar">
+    <div class="code-track" style="animation-duration: 11s;">
+        <span class="code">def predict(model, x):</span>
+        <span class="code">import tensorflow as tf</span>
+        <span class="code">return model(x)</span>
+    </div>
+</div>
+
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>SQL</span>
+                        <span></span>
+                    </div>
+<div class="code-bar">
+    <div class="code-track" style="animation-duration: 13s;">
+        <span class="code">SELECT * FROM users;</span>
+        <span class="code">WHERE age &gt; 18;</span>
+        <span class="code">INSERT INTO orders VALUES (...);</span>
+        <span class="code">UPDATE users SET name='Swarom';</span>
+        <span class="code">DELETE FROM logs WHERE id=5;</span>
+        <span class="code">JOIN orders ON users.id = orders.user_id;</span>
+    </div>
+</div>
+
+                </div>
+
+               
+
+                <br>
+                <p><strong>Additional Skills:</strong></p>
+<div class="tags">
+    
+    <span class="tag">HTML</span>
+    <span class="tag">CSS</span>
+    
+    <span class="tag">TensorFlow</span>
+    <span class="tag">FastAPI</span>
+   
+    <span class="tag">MongoDB</span>
+    <span class="tag">Git</span>
+    <span class="tag">GitHub</span>
+    
+</div>
+
+            </div>
+
+            <div class="tab-content" id="tab-3">
+                <h2>🎓 EDUCATION</h2>
+                
+                <div class="section-item">
+                    <div class="job-header">
+                        <div>
+                            <span class="job-title">B.Tech CSE</span>
+                        </div>
+                        <span class="date">2022 - 2026</span>
+                    </div>
+                    <p><strong>MIT-ADT University</strong> - Pune, Maharashtra</p>
+                    <p>CGPA: 7.78 </p>
+                    
+                </div>
+                <div class="section-item">
+                    <div class="job-header">
+                        <div>
+                            <span class="job-title">The Lexicon International School</span>
+                        </div>
+                        <span class="date">2022</span>
+                    </div>
+                    <p><strong>Class 12</strong> - Pune, Maharashtra</p>
+                    <p>Pass: First class, 75% </p>
+                    
+                </div>
+                <div class="section-item">
+                    <div class="job-header">
+                        <div>
+                            <span class="job-title">The Lexicon International School</span>
+                        </div>
+                        <span class="date">2020</span>
+                    </div>
+                    <p><strong>Class 10</strong> - Pune, Maharashtra</p>
+                    <p>Pass: First class with Distiction, 87% </p>
+                    
+                </div>
+
+                <br>
+
+                <h2>📜 CERTIFICATIONS</h2>
+                
+                <div class="section-item">
+                    <p>✓ <strong>Cisco Networking Basics</strong> </p>
+                    <p>✓ <strong>HTML, CSS & JavaScript – Coursera</strong> </p>
+                    <p>✓ <strong>Relational Database Design – Coursera</strong> </p>
+                    <p>✓ <strong>AWS Academy Cloud Foundations</strong> </p>
+                     <p>✓ <strong>Fundamentals of Git – Coursera</strong> </p>
+
+                </div>
+
+                <br>
+
+                
+
+        </div>
+        </div> <div class="status-bar">
+            <div class="status-panel">Ready</div>
+            <div class="status-panel fixed" id="visitor-count">Visitors: 1337</div>
+            <div class="status-panel fixed" id="load-time">Load: 0.3s</div>
+        </div>
+    </div>
+
+    <div class="modal" id="aboutModal">
+        <div class="dialog">
+            <div class="title-bar">
+                <div class="title-bar-text">About Profile.exe</div>
+                <div class="title-bar-controls">
+                    <button onclick="closeAbout()">X</button>
+                </div>
+            </div>
+            <div class="dialog-body">
+                <h3>Resume Portfolio v1.0</h3>
+                <p>Built with HTML, CSS, and JavaScript</p>
+                <p>© 2024 Swarom Firagannavar</p>
+                <div class="dialog-buttons">
+                    <button class="win-btn" onclick="closeAbout()">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="closeModal">
+        <div class="dialog">
+            <div class="title-bar">
+                <div class="title-bar-text">Exit Confirmation</div>
+            </div>
+            <div class="dialog-body">
+                <p>Are you sure you want to close this window?</p>
+                <p>💡 Tip: You can still hire me!</p>
+                <div class="dialog-buttons">
+                    <button class="win-btn" onclick="closeCloseDialog()">No, Stay</button>
+                    <button class="win-btn" onclick="actuallyClose()">Yes, Exit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="taskbar">
+        <div class="start-btn">
+            <img src="logo.png" alt="" class="start-icon"> Start
+        </div>
+
+        <div class="taskbar-item" onclick="restoreWindow()">
+            📄 Profile.exe
+        </div>
+
+        <div class="clock" id="clock">12:00 PM</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
