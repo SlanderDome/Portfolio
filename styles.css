@@ -1041,3 +1041,36 @@
         z-index: 9999 !important; /* Ensure it stays on top of everything */
     }
 }
+/* Terminal Styling */
+.cmd-window {
+    background-color: #000;
+    color: #00ff00; /* Hacker Green */
+    font-family: 'Courier New', Courier, monospace;
+    padding: 15px;
+    height: 300px; /* Adjust to fit your window */
+    overflow-y: auto;
+    border: 2px inset #fff;
+    font-size: 14px;
+    text-align: left; /* Ensure text aligns left */
+}
+
+.cmd-input-line {
+    display: flex;
+    align-items: center;
+}
+
+.cmd-input {
+    background: transparent;
+    border: none;
+    color: #00ff00;
+    font-family: inherit;
+    font-size: inherit;
+    flex-grow: 1;
+    outline: none;
+    margin-left: 5px;
+}
+
+/* Custom Scrollbar for Terminal */
+.cmd-window::-webkit-scrollbar { width: 10px; }
+.cmd-window::-webkit-scrollbar-track { background: #000; }
+.cmd-window::-webkit-scrollbar-thumb { background: #008000; border: 1px solid #00ff00; }

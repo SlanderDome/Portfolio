@@ -92,24 +92,27 @@
             <hr>
 
             <div class="tabs">
-                <div class="tab active" onclick="switchTab(0)">Game</div>
+                <div class="tab active" onclick="switchTab(0)">CMD</div>
                 <div class="tab" onclick="switchTab(1)">Projects</div>
                 <div class="tab" onclick="switchTab(2)">Skills</div>
                 <div class="tab" onclick="switchTab(3)">Education</div>
             </div>
 
             <div class="tab-content active" id="tab-0">
-    <h2>🕹️ Lets Play a Game</h2>
+    <h2>Terminal</h2>
     <p></p>
     
-    <div class="game-container">
-        <div class="game-header">
-            <div class="score-board">Score: <span id="score">0</span></div>
-            <button class="win-btn" onclick="startGame()">▶ Start Game</button>
-        </div>
-        <canvas id="gameCanvas" width="400" height="300"></canvas>
-        <p class="controls-hint">Use Arrow Keys to Move</p>
+    <div class="cmd-window">
+    <div class="cmd-content" id="cmdOutput">
+        Microsoft(R) Windows 95<br>
+        (C)Copyright Microsoft Corp 1981-1996.<br><br>
+        C:\Users\Visitor> Type 'help' to see commands.<br><br>
     </div>
+    <div class="cmd-input-line">
+        <span class="cmd-prompt">C:\Users\Visitor></span>
+        <input type="text" id="cmdInput" class="cmd-input" autocomplete="off" autofocus>
+    </div>
+</div>
 </div>
 
              <div class="tab-content" id="tab-1">

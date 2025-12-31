@@ -124,18 +124,16 @@ function actuallyClose() {
 
 function openFromDesktop() {
     restoreWindow();
-    // Reset positions so it doesn't open off-screen if it was dragged there
     win.style.top = '10%'; 
     win.style.left = '10%';
     win.style.position = 'absolute'; 
     if(windowState === "maximized") toggleMaximize(); 
 }
 
-// ================= DRAG FUNCTIONALITY (UPDATED) =================
+// ================= DRAG FUNCTIONALITY =================
 function makeDraggable(element) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     
-    // UPDATED: Check if a title bar exists. If NOT, use the whole element as the handle.
     const header = element.querySelector('.title-bar');
     const handle = header || element; 
 
@@ -144,16 +142,11 @@ function makeDraggable(element) {
     function dragMouseDown(e) {
         e = e || window.event;
         
-        // 1. Stop if window is maximized
         if (element.classList.contains('window') && windowState === 'maximized') return;
-
-        // 2. Prevent dragging if clicking buttons
         if (e.target.tagName === 'BUTTON') return;
 
         e.preventDefault();
 
-        // 3. Switch to absolute positioning for dragging
-        // We do this check so we don't reset position if it's already dragged
         const cssPosition = window.getComputedStyle(element).position;
         if (cssPosition !== 'absolute' && cssPosition !== 'fixed') {
              const rect = element.getBoundingClientRect();
@@ -163,7 +156,6 @@ function makeDraggable(element) {
              element.style.left = rect.left + "px";
         }
 
-        // 4. Get mouse start position
         pos3 = e.clientX;
         pos4 = e.clientY;
         
@@ -175,13 +167,11 @@ function makeDraggable(element) {
         e = e || window.event;
         e.preventDefault();
         
-        // Calculate new cursor position
         pos1 = pos3 - e.clientX;
         pos2 = pos4 - e.clientY;
         pos3 = e.clientX;
         pos4 = e.clientY;
         
-        // Set element's new position
         element.style.top = (element.offsetTop - pos2) + "px";
         element.style.left = (element.offsetLeft - pos1) + "px";
     }
@@ -218,21 +208,18 @@ window.onload = () => {
     }
 };
 
-// ================= INITIALIZATION =================
+// ================= MAIN INITIALIZATION =================
 document.addEventListener('DOMContentLoaded', () => {
     
     // 1. Initialize Window Drag
     if (win) makeDraggable(win);
 
-    // 2. Initialize Desktop Icon Drag (NEW)
-    // Select ALL desktop icons in case you add more later
+    // 2. Initialize Desktop Icons
     const icons = document.querySelectorAll('.desktop-icon');
     icons.forEach(icon => {
         makeDraggable(icon);
-        
-        // IMPORTANT: Switch to Double Click to open
-        icon.onclick = null; // Remove single click
-        icon.ondblclick = openFromDesktop; // Add double click
+        icon.onclick = null;
+        icon.ondblclick = openFromDesktop;
     });
 
     // 3. Button Wiring
@@ -244,185 +231,113 @@ document.addEventListener('DOMContentLoaded', () => {
     if (maxBtn) maxBtn.addEventListener('click', toggleMaximize);
     if (closeBtn) closeBtn.addEventListener('click', showCloseDialog); 
     
-    // 4. Start Button
+    // 4. Start Button Logic
     const startBtn = document.querySelector('.start-btn');
-    if (startBtn) {
-        startBtn.addEventListener('click', () => {
-           console.log("Start Clicked");
+    const startMenu = document.getElementById('startMenu');
+
+    if (startBtn && startMenu) {
+        startBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            startMenu.classList.toggle('active');
+            startBtn.classList.toggle('active');
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!startMenu.contains(e.target) && !startBtn.contains(e.target)) {
+                startMenu.classList.remove('active');
+                startBtn.classList.remove('active');
+            }
+        });
+    }
+    
+    // 5. Start Menu Item Clicks
+    document.querySelectorAll('.start-menu-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+            if (!this.classList.contains('shutdown') && !this.classList.contains('has-arrow')) {
+                e.stopPropagation();
+                alert('Opening: ' + this.textContent.trim());
+                startMenu.classList.remove('active');
+                startBtn.classList.remove('active');
+            }
+        });
+    });
+
+    // 6. TERMINAL LOGIC (UPDATED AS REQUESTED)
+    const input = document.getElementById("cmdInput");
+    const output = document.getElementById("cmdOutput");
+    const terminalWindow = document.querySelector(".cmd-window");
+
+    if (input && output && terminalWindow) {
+        input.addEventListener("keydown", function(e) {
+            if (e.key === "Enter") {
+                // Get command and make it lowercase
+                let command = input.value.trim().toLowerCase(); 
+
+                // 1. Show what user typed
+                if (input.value.trim().length > 0) {
+                     output.innerHTML += `<span>C:\\Users\\Visitor> ${input.value}</span><br>`;
+                } else {
+                     output.innerHTML += `<span>C:\\Users\\Visitor></span><br>`;
+                     input.value = "";
+                     return;
+                }
+
+                // 2. Logic for Commands
+                switch (command) {
+                    case "help":
+                        output.innerHTML += `Available commands:<br>
+                        - [about] : Who am I?<br>
+                        - [skills] : What can I do?<br>
+                        - [contact] : Hire me<br>
+                        - [clear] : Clean screen<br><br>`;
+                        break;
+                    case "about":
+                        output.innerHTML += `> I am an aspiring software engineer,looking to contribute towards tech that solves real world problems<br><br>`;
+                        break;
+                    case "skills":
+                        output.innerHTML += `> LOADED MODULES: Java, Python, SQL, HTML/CSS or check the Skills tab<br><br>`;
+                        break;
+                    case "contact":
+                        output.innerHTML += `> EMAIL: swarom66@gmail.com <br>> STATUS: Ready to work.<br><br>`;
+                        break;
+                    case "clear":
+                        output.innerHTML = "Microsoft(R) Windows 95<br>(C)Copyright Microsoft Corp 1981-1996.<br><br>";
+                        break;
+                    default:
+                        // 3. DEFAULT RESPONSE FOR UNKNOWN INPUT
+                        output.innerHTML += `> Available commands = help<br><br>`;
+                }
+
+                input.value = "";
+                output.scrollTop = output.scrollHeight;
+            }
+        });
+
+        terminalWindow.addEventListener("click", () => {
+            input.focus();
         });
     }
 });
-// ================= SNAKE GAME LOGIC =================
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
-const scoreEl = document.getElementById('score');
 
-// Game Config
-const box = 20; // Size of one square
-let snake = [];
-let food = {};
-let score = 0;
-let d; // Direction
-let gameInterval;
-let isGameRunning = false;
-
-// Initialize Game
-function startGame() {
-    if(isGameRunning) clearInterval(gameInterval); // Reset if running
-    
-    // Reset State
-    snake = [];
-    snake[0] = { x: 9 * box, y: 10 * box }; // Start position
-    score = 0;
-    d = null; // Wait for input
-    scoreEl.innerText = score;
-    isGameRunning = true;
-    
-    // Generate first food
-    generateFood();
-    
-    // Start Loop (100ms speed)
-    clearInterval(gameInterval);
-    gameInterval = setInterval(drawGame, 100);
-}
-
-function generateFood() {
-    food = {
-        x: Math.floor(Math.random() * (canvas.width/box)) * box,
-        y: Math.floor(Math.random() * (canvas.height/box)) * box
-    };
-    // Don't spawn on snake body
-    for(let i=0; i<snake.length; i++){
-        if(food.x == snake[i].x && food.y == snake[i].y){
-            generateFood();
-        }
-    }
-}
-
-// Input Listener
-document.addEventListener("keydown", direction);
-
-function direction(event) {
-    // Prevent scrolling when playing
-    if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(event.code) > -1) {
-        event.preventDefault();
-    }
-
-    let key = event.keyCode;
-    if( key == 37 && d != "RIGHT") d = "LEFT";
-    else if(key == 38 && d != "DOWN") d = "UP";
-    else if(key == 39 && d != "LEFT") d = "RIGHT";
-    else if(key == 40 && d != "UP") d = "DOWN";
-}
-
-function drawGame() {
-    // Draw Background
-    ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Draw Food
-    ctx.fillStyle = "red";
-    ctx.fillRect(food.x, food.y, box, box);
-
-    // Draw Snake
-    for( let i = 0; i < snake.length; i++){
-        ctx.fillStyle = ( i == 0 ) ? "lime" : "green"; // Head is lime
-        ctx.fillRect(snake[i].x, snake[i].y, box, box);
-        
-        ctx.strokeStyle = "black";
-        ctx.strokeRect(snake[i].x, snake[i].y, box, box);
-    }
-
-    // Old Head Position
-    let snakeX = snake[0].x;
-    let snakeY = snake[0].y;
-
-    // Move logic
-    if( d == "LEFT") snakeX -= box;
-    if( d == "UP") snakeY -= box;
-    if( d == "RIGHT") snakeX += box;
-    if( d == "DOWN") snakeY += box;
-
-    // If game hasn't started moving yet, don't update
-    if (!d) return; 
-
-    // Eat Food
-    if(snakeX == food.x && snakeY == food.y){
-        score++;
-        scoreEl.innerText = score;
-        generateFood();
-        // Don't pop the tail (snake grows)
-    } else {
-        // Remove tail
-        snake.pop();
-    }
-
-    // New Head
-    let newHead = { x : snakeX, y : snakeY };
-
-    // Game Over Rules
-    if(snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision(newHead, snake)){
-        clearInterval(gameInterval);
-        isGameRunning = false;
-        alert("GAME OVER! Score: " + score);
-    }
-
-    snake.unshift(newHead);
-}
-
-function collision(head, array){
-    for(let i = 0; i < array.length; i++){
-        if(head.x == array[i].x && head.y == array[i].y){
-            return true;
-        }
-    }
-    return false;
-}
-// Start Menu Toggle
-const startBtn = document.querySelector('.start-btn');
-const startMenu = document.getElementById('startMenu');
-
-startBtn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    startMenu.classList.toggle('active');
-    startBtn.classList.toggle('active');
-});
-
-// Close start menu when clicking outside
-document.addEventListener('click', function(e) {
-    if (!startMenu.contains(e.target) && !startBtn.contains(e.target)) {
-        startMenu.classList.remove('active');
-        startBtn.classList.remove('active');
-    }
-});
-
-// Start menu item clicks
-document.querySelectorAll('.start-menu-item').forEach(item => {
-    item.addEventListener('click', function(e) {
-        if (!this.classList.contains('shutdown') && !this.classList.contains('has-arrow')) {
-            e.stopPropagation();
-            alert('Opening: ' + this.textContent.trim());
-            startMenu.classList.remove('active');
-            startBtn.classList.remove('active');
-        }
-    });
-});
-
-// Shutdown Dialog Functions
+// ================= SHUTDOWN DIALOG =================
 function showShutdownDialog() {
-    document.getElementById('shutdownModal').classList.add('active');
-    startMenu.classList.remove('active');
-    startBtn.classList.remove('active');
+    const modal = document.getElementById('shutdownModal');
+    if (modal) modal.classList.add('active');
+    
+    const startMenu = document.getElementById('startMenu');
+    const startBtn = document.querySelector('.start-btn');
+    if(startMenu) startMenu.classList.remove('active');
+    if(startBtn) startBtn.classList.remove('active');
 }
 
 function closeShutdown() {
-    document.getElementById('shutdownModal').classList.remove('active');
+    const modal = document.getElementById('shutdownModal');
+    if (modal) modal.classList.remove('active');
 }
 
 function performShutdown() {
     const selected = document.querySelector('input[name="shutdown"]:checked');
-    const action = selected.parentElement.textContent.trim();
+    const action = selected ? selected.parentElement.textContent.trim() : "Shutdown";
     alert('Performing: ' + action + '\n\nJust kidding! This is a portfolio website 😄');
     closeShutdown();
 }
-// ... end of DOMContentLoaded ...
