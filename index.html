@@ -82,7 +82,7 @@
                     </a>
 
                     <a href="mailto:swarom66@gmail.com" class="win-btn">
-                        <img src="mail.png" alt="" class="btn-icon"> Email Me
+                        <img src="mail.png" alt="" class="btn-icon"> Email 
                     </a>
                     
                     <button class="win-btn" onclick="downloadResume()">💾 Download CV</button>
@@ -92,41 +92,25 @@
             <hr>
 
             <div class="tabs">
-                <div class="tab active" onclick="switchTab(0)">Experience</div>
+                <div class="tab active" onclick="switchTab(0)">Game</div>
                 <div class="tab" onclick="switchTab(1)">Projects</div>
                 <div class="tab" onclick="switchTab(2)">Skills</div>
                 <div class="tab" onclick="switchTab(3)">Education</div>
             </div>
 
             <div class="tab-content active" id="tab-0">
-                <h2>💼 EXPERIENCE</h2>
-                
-                <div class="section-item">
-                    <div class="job-header">
-                        <div>
-                            <span class="job-title">Senior Developer</span> <span class="company">@ TechCorp</span>
-                        </div>
-                        <span class="date">2023 - Present</span>
-                    </div>
-                    <ul>
-                        <li>Rebuilt core legacy system using modern architecture, improving load times by 40%</li>
-                        <li>Led team of 5 developers in migrating monolithic application to microservices</li>
-                    </ul>
-                </div>
-
-                <div class="section-item">
-                    <div class="job-header">
-                        <div>
-                            <span class="job-title">Web Designer</span> <span class="company">@ CreativeStudio</span>
-                        </div>
-                        <span class="date">2021 - 2023</span>
-                    </div>
-                    <ul>
-                        <li>Designed user interfaces for 20+ high-profile clients</li>
-                        <li>Managed full frontend lifecycle from wireframes to production deployment</li>
-                    </ul>
-                </div>
-            </div>
+    <h2>🕹️ Lets Play a Game</h2>
+    <p></p>
+    
+    <div class="game-container">
+        <div class="game-header">
+            <div class="score-board">Score: <span id="score">0</span></div>
+            <button class="win-btn" onclick="startGame()">▶ Start Game</button>
+        </div>
+        <canvas id="gameCanvas" width="400" height="300"></canvas>
+        <p class="controls-hint">Use Arrow Keys to Move</p>
+    </div>
+</div>
 
              <div class="tab-content" id="tab-1">
     <h2>🧮 PROJECTS</h2>
@@ -397,8 +381,45 @@
         </div>
     </div>
 
+
+
     <div class="taskbar">
         <div class="start-btn">
+            <div class="start-menu" id="startMenu">
+    <div class="start-menu-header">Windows 98</div>
+    <div class="start-menu-items">
+        <div class="start-menu-item programs has-arrow">
+            Programs
+            <div class="submenu">
+                <div class="start-menu-item">Accessories</div>
+                <div class="start-menu-item">MS-DOS Prompt</div>
+                <div class="start-menu-item">Internet Explorer</div>
+                <div class="start-menu-item">Windows Explorer</div>
+            </div>
+        </div>
+        <div class="start-menu-item documents has-arrow">
+            Documents
+            <div class="submenu">
+                <div class="start-menu-item">Resume.doc</div>
+                <div class="start-menu-item">Projects.txt</div>
+                <div class="start-menu-item">Portfolio.pdf</div>
+            </div>
+        </div>
+        <div class="start-menu-item settings has-arrow">
+            Settings
+            <div class="submenu">
+                <div class="start-menu-item">Control Panel</div>
+                <div class="start-menu-item">Printers</div>
+                <div class="start-menu-item">Taskbar & Start Menu</div>
+            </div>
+        </div>
+        <div class="start-menu-item find">Find</div>
+        <div class="start-menu-item help">Help</div>
+        <div class="start-menu-item run">Run...</div>
+        <div class="start-menu-separator"></div>
+        <div class="start-menu-item shutdown" onclick="showShutdownDialog()">Shut Down...</div>
+    </div>
+</div>
             <img src="logo.png" alt="" class="start-icon"> Start
         </div>
 
@@ -408,6 +429,34 @@
 
         <div class="clock" id="clock">12:00 PM</div>
     </div>
+<div class="modal" id="shutdownModal">
+    <div class="dialog">
+        <div class="title-bar">
+            <div class="title-bar-text">Shut Down Windows</div>
+            <div class="title-bar-controls">
+                <button onclick="closeShutdown()">X</button>
+            </div>
+        </div>
+        <div class="dialog-body">
+            <h3>What do you want the computer to do?</h3>
+            <div style="text-align: left; margin: 20px 0;">
+                <label style="display: block; margin: 10px 0; cursor: pointer;">
+                    <input type="radio" name="shutdown" checked> Shut down
+                </label>
+                <label style="display: block; margin: 10px 0; cursor: pointer;">
+                    <input type="radio" name="shutdown"> Restart
+                </label>
+                <label style="display: block; margin: 10px 0; cursor: pointer;">
+                    <input type="radio" name="shutdown"> Log off
+                </label>
+            </div>
+            <div class="dialog-buttons">
+                <button class="win-btn" onclick="performShutdown()">OK</button>
+                <button class="win-btn" onclick="closeShutdown()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 
     <script src="script.js"></script>
 </body>

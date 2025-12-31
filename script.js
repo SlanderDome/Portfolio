@@ -252,3 +252,177 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+// ================= SNAKE GAME LOGIC =================
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const scoreEl = document.getElementById('score');
+
+// Game Config
+const box = 20; // Size of one square
+let snake = [];
+let food = {};
+let score = 0;
+let d; // Direction
+let gameInterval;
+let isGameRunning = false;
+
+// Initialize Game
+function startGame() {
+    if(isGameRunning) clearInterval(gameInterval); // Reset if running
+    
+    // Reset State
+    snake = [];
+    snake[0] = { x: 9 * box, y: 10 * box }; // Start position
+    score = 0;
+    d = null; // Wait for input
+    scoreEl.innerText = score;
+    isGameRunning = true;
+    
+    // Generate first food
+    generateFood();
+    
+    // Start Loop (100ms speed)
+    clearInterval(gameInterval);
+    gameInterval = setInterval(drawGame, 100);
+}
+
+function generateFood() {
+    food = {
+        x: Math.floor(Math.random() * (canvas.width/box)) * box,
+        y: Math.floor(Math.random() * (canvas.height/box)) * box
+    };
+    // Don't spawn on snake body
+    for(let i=0; i<snake.length; i++){
+        if(food.x == snake[i].x && food.y == snake[i].y){
+            generateFood();
+        }
+    }
+}
+
+// Input Listener
+document.addEventListener("keydown", direction);
+
+function direction(event) {
+    // Prevent scrolling when playing
+    if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(event.code) > -1) {
+        event.preventDefault();
+    }
+
+    let key = event.keyCode;
+    if( key == 37 && d != "RIGHT") d = "LEFT";
+    else if(key == 38 && d != "DOWN") d = "UP";
+    else if(key == 39 && d != "LEFT") d = "RIGHT";
+    else if(key == 40 && d != "UP") d = "DOWN";
+}
+
+function drawGame() {
+    // Draw Background
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Draw Food
+    ctx.fillStyle = "red";
+    ctx.fillRect(food.x, food.y, box, box);
+
+    // Draw Snake
+    for( let i = 0; i < snake.length; i++){
+        ctx.fillStyle = ( i == 0 ) ? "lime" : "green"; // Head is lime
+        ctx.fillRect(snake[i].x, snake[i].y, box, box);
+        
+        ctx.strokeStyle = "black";
+        ctx.strokeRect(snake[i].x, snake[i].y, box, box);
+    }
+
+    // Old Head Position
+    let snakeX = snake[0].x;
+    let snakeY = snake[0].y;
+
+    // Move logic
+    if( d == "LEFT") snakeX -= box;
+    if( d == "UP") snakeY -= box;
+    if( d == "RIGHT") snakeX += box;
+    if( d == "DOWN") snakeY += box;
+
+    // If game hasn't started moving yet, don't update
+    if (!d) return; 
+
+    // Eat Food
+    if(snakeX == food.x && snakeY == food.y){
+        score++;
+        scoreEl.innerText = score;
+        generateFood();
+        // Don't pop the tail (snake grows)
+    } else {
+        // Remove tail
+        snake.pop();
+    }
+
+    // New Head
+    let newHead = { x : snakeX, y : snakeY };
+
+    // Game Over Rules
+    if(snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision(newHead, snake)){
+        clearInterval(gameInterval);
+        isGameRunning = false;
+        alert("GAME OVER! Score: " + score);
+    }
+
+    snake.unshift(newHead);
+}
+
+function collision(head, array){
+    for(let i = 0; i < array.length; i++){
+        if(head.x == array[i].x && head.y == array[i].y){
+            return true;
+        }
+    }
+    return false;
+}
+// Start Menu Toggle
+const startBtn = document.querySelector('.start-btn');
+const startMenu = document.getElementById('startMenu');
+
+startBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    startMenu.classList.toggle('active');
+    startBtn.classList.toggle('active');
+});
+
+// Close start menu when clicking outside
+document.addEventListener('click', function(e) {
+    if (!startMenu.contains(e.target) && !startBtn.contains(e.target)) {
+        startMenu.classList.remove('active');
+        startBtn.classList.remove('active');
+    }
+});
+
+// Start menu item clicks
+document.querySelectorAll('.start-menu-item').forEach(item => {
+    item.addEventListener('click', function(e) {
+        if (!this.classList.contains('shutdown') && !this.classList.contains('has-arrow')) {
+            e.stopPropagation();
+            alert('Opening: ' + this.textContent.trim());
+            startMenu.classList.remove('active');
+            startBtn.classList.remove('active');
+        }
+    });
+});
+
+// Shutdown Dialog Functions
+function showShutdownDialog() {
+    document.getElementById('shutdownModal').classList.add('active');
+    startMenu.classList.remove('active');
+    startBtn.classList.remove('active');
+}
+
+function closeShutdown() {
+    document.getElementById('shutdownModal').classList.remove('active');
+}
+
+function performShutdown() {
+    const selected = document.querySelector('input[name="shutdown"]:checked');
+    const action = selected.parentElement.textContent.trim();
+    alert('Performing: ' + action + '\n\nJust kidding! This is a portfolio website 😄');
+    closeShutdown();
+}
+// ... end of DOMContentLoaded ...
