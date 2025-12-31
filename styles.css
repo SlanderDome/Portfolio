@@ -987,3 +987,57 @@
     transform: translate(1px, 1px);
 }
 
+/* ================= FINAL MOBILE FIXES ================= */
+/* Paste this at the very end of your CSS file */
+
+@media screen and (max-width: 768px) {
+    
+    /* FIX 1: Allow scrolling on phones */
+    /* The desktop 'center' alignment cuts off content on small screens */
+    html, body {
+        height: auto !important; 
+        min-height: 100vh;
+        overflow-x: hidden; /* Stop horizontal shaking */
+    }
+
+    body {
+        display: block !important; /* Disables the flex centering */
+        padding: 10px 10px 60px 10px !important; /* Top Right Bottom Left */
+    }
+
+    /* FIX 2: Ensure the window fits */
+    .window {
+        margin: 0 auto !important; /* Center horizontally */
+        width: 100% !important;
+        max-width: 100% !important;
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        transform: none !important;
+    }
+
+    /* FIX 3: Background Video Control */
+    /* Fixed videos often zoom in too much on mobile */
+    #bg-video {
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover; /* Ensures video covers screen without stretching */
+    }
+
+    /* FIX 4: Menu Bar Wrapping */
+    /* If 'File Edit View' gets too wide, let it wrap */
+    .menu-bar {
+        flex-wrap: wrap;
+    }
+
+    /* FIX 5: Canvas/Game Responsiveness */
+    #gameCanvas {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    /* FIX 6: Taskbar Layering */
+    .taskbar {
+        z-index: 9999 !important; /* Ensure it stays on top of everything */
+    }
+}
