@@ -75,16 +75,16 @@ function copyLink() {
 // ================= WINDOW CONTROLS =================
 function minimizeWindow() {
     if (!win) return;
-    win.classList.add('minimized'); 
-    win.style.display = 'none'; 
+    win.classList.add('minimized');
+    win.style.display = 'none';
     windowState = "minimized";
 }
 
 function restoreWindow() {
     if (!win) return;
     win.classList.remove('minimized');
-    win.style.display = 'block'; 
-    if (taskbarItem) taskbarItem.style.display = 'flex'; 
+    win.style.display = 'block';
+    if (taskbarItem) taskbarItem.style.display = 'flex';
     if (windowState === "minimized" || windowState === "closed") windowState = "normal";
 }
 
@@ -93,12 +93,12 @@ function toggleMaximize() {
     if (windowState === "minimized") restoreWindow();
 
     if (windowState === "maximized") {
-        win.style.position = ''; 
+        win.style.position = '';
         win.style.top = '';
         win.style.left = '';
         win.style.width = '';
         win.style.height = '';
-        win.style.margin = '';   
+        win.style.margin = '';
         win.style.maxWidth = ''; // Restore limit
         windowState = "normal";
         return;
@@ -109,14 +109,14 @@ function toggleMaximize() {
     win.style.left = '0';
     win.style.width = '100vw';
     win.style.height = `calc(100vh - ${TASKBAR_HEIGHT}px)`;
-    win.style.margin = '0'; 
+    win.style.margin = '0';
     win.style.maxWidth = 'none'; // Remove limit
     windowState = "maximized";
 }
 
 function actuallyClose() {
     if (!win) return;
-    win.style.display = 'none'; 
+    win.style.display = 'none';
     if (taskbarItem) taskbarItem.style.display = 'none';
     windowState = "closed";
     closeCloseDialog();
@@ -124,24 +124,24 @@ function actuallyClose() {
 
 function openFromDesktop() {
     restoreWindow();
-    win.style.top = '10%'; 
+    win.style.top = '10%';
     win.style.left = '10%';
-    win.style.position = 'absolute'; 
-    if(windowState === "maximized") toggleMaximize(); 
+    win.style.position = 'absolute';
+    if (windowState === "maximized") toggleMaximize();
 }
 
 // ================= DRAG FUNCTIONALITY =================
 function makeDraggable(element) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    
+
     const header = element.querySelector('.title-bar');
-    const handle = header || element; 
+    const handle = header || element;
 
     handle.onmousedown = dragMouseDown;
 
     function dragMouseDown(e) {
         e = e || window.event;
-        
+
         if (element.classList.contains('window') && windowState === 'maximized') return;
         if (e.target.tagName === 'BUTTON') return;
 
@@ -149,16 +149,16 @@ function makeDraggable(element) {
 
         const cssPosition = window.getComputedStyle(element).position;
         if (cssPosition !== 'absolute' && cssPosition !== 'fixed') {
-             const rect = element.getBoundingClientRect();
-             element.style.position = 'absolute';
-             element.style.margin = '0';
-             element.style.top = rect.top + "px";
-             element.style.left = rect.left + "px";
+            const rect = element.getBoundingClientRect();
+            element.style.position = 'absolute';
+            element.style.margin = '0';
+            element.style.top = rect.top + "px";
+            element.style.left = rect.left + "px";
         }
 
         pos3 = e.clientX;
         pos4 = e.clientY;
-        
+
         document.onmouseup = closeDragElement;
         document.onmousemove = elementDrag;
     }
@@ -166,12 +166,12 @@ function makeDraggable(element) {
     function elementDrag(e) {
         e = e || window.event;
         e.preventDefault();
-        
+
         pos1 = pos3 - e.clientX;
         pos2 = pos4 - e.clientY;
         pos3 = e.clientX;
         pos4 = e.clientY;
-        
+
         element.style.top = (element.offsetTop - pos2) + "px";
         element.style.left = (element.offsetLeft - pos1) + "px";
     }
@@ -185,8 +185,8 @@ function makeDraggable(element) {
 // ================= DOWNLOAD CV =================
 function downloadResume() {
     const link = document.createElement('a');
-    link.href = 'resume.pdf'; 
-    link.download = 'Resume.pdf';
+    link.href = 'Swarom_Resume.pdf';
+    link.download = 'Swarom_Resume.pdf';
     link.click();
 }
 
@@ -210,7 +210,7 @@ window.onload = () => {
 
 // ================= MAIN INITIALIZATION =================
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     // 1. Initialize Window Drag
     if (win) makeDraggable(win);
 
@@ -226,33 +226,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const minBtn = document.querySelector('[aria-label="Minimize"]');
     const maxBtn = document.querySelector('[aria-label="Maximize"]');
     const closeBtn = document.querySelector('[aria-label="Close"]');
-    
+
     if (minBtn) minBtn.addEventListener('click', minimizeWindow);
     if (maxBtn) maxBtn.addEventListener('click', toggleMaximize);
-    if (closeBtn) closeBtn.addEventListener('click', showCloseDialog); 
-    
+    if (closeBtn) closeBtn.addEventListener('click', showCloseDialog);
+
     // 4. Start Button Logic
     const startBtn = document.querySelector('.start-btn');
     const startMenu = document.getElementById('startMenu');
 
     if (startBtn && startMenu) {
-        startBtn.addEventListener('click', function(e) {
+        startBtn.addEventListener('click', function (e) {
             e.stopPropagation();
             startMenu.classList.toggle('active');
             startBtn.classList.toggle('active');
         });
 
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             if (!startMenu.contains(e.target) && !startBtn.contains(e.target)) {
                 startMenu.classList.remove('active');
                 startBtn.classList.remove('active');
             }
         });
     }
-    
+
     // 5. Start Menu Item Clicks
     document.querySelectorAll('.start-menu-item').forEach(item => {
-        item.addEventListener('click', function(e) {
+        item.addEventListener('click', function (e) {
             if (!this.classList.contains('shutdown') && !this.classList.contains('has-arrow')) {
                 e.stopPropagation();
                 alert('Opening: ' + this.textContent.trim());
@@ -268,18 +268,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const terminalWindow = document.querySelector(".cmd-window");
 
     if (input && output && terminalWindow) {
-        input.addEventListener("keydown", function(e) {
+        input.addEventListener("keydown", function (e) {
             if (e.key === "Enter") {
                 // Get command and make it lowercase
-                let command = input.value.trim().toLowerCase(); 
+                let command = input.value.trim().toLowerCase();
 
                 // 1. Show what user typed
                 if (input.value.trim().length > 0) {
-                     output.innerHTML += `<span>C:\\Users\\Visitor> ${input.value}</span><br>`;
+                    output.innerHTML += `<span>C:\\Users\\Visitor> ${input.value}</span><br>`;
                 } else {
-                     output.innerHTML += `<span>C:\\Users\\Visitor></span><br>`;
-                     input.value = "";
-                     return;
+                    output.innerHTML += `<span>C:\\Users\\Visitor></span><br>`;
+                    input.value = "";
+                    return;
                 }
 
                 // 2. Logic for Commands
@@ -323,11 +323,11 @@ document.addEventListener('DOMContentLoaded', () => {
 function showShutdownDialog() {
     const modal = document.getElementById('shutdownModal');
     if (modal) modal.classList.add('active');
-    
+
     const startMenu = document.getElementById('startMenu');
     const startBtn = document.querySelector('.start-btn');
-    if(startMenu) startMenu.classList.remove('active');
-    if(startBtn) startBtn.classList.remove('active');
+    if (startMenu) startMenu.classList.remove('active');
+    if (startBtn) startBtn.classList.remove('active');
 }
 
 function closeShutdown() {
