@@ -1,73 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio.exe</title>
-    <link rel="stylesheet" href="styles.css"> 
+    <title>Portfolio.exe — Swarom Firagannavar</title>
+    <meta name="description"
+        content="Swarom Firagannavar's portfolio — Computer Engineering Student & Aspiring Software Engineer. Windows XP themed interactive portfolio.">
+    <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="craft.png" type="image/png">
 </head>
+
 <body>
+
+    <!-- ===== BOOT SEQUENCE ===== -->
+    <div class="boot-screen" id="bootScreen">
+        <!-- Phase 1: BIOS -->
+        <div class="bios-phase" id="biosPhase">
+            <div class="bios-line" style="animation-delay: 0s"><span class="highlight">SwaromBIOS v4.2.0</span> —
+                Portfolio System</div>
+            <div class="bios-line" style="animation-delay: 0.3s">Copyright (C) 2026, Swarom Industries Ltd.</div>
+            <div class="bios-line" style="animation-delay: 0.5s">&nbsp;</div>
+            <div class="bios-line" style="animation-delay: 0.7s">CPU: <span class="value">Creative Engine @
+                    3.6GHz</span></div>
+            <div class="bios-line" style="animation-delay: 0.9s">RAM: <span class="value">Unlimited Ambition
+                    Detected</span></div>
+            <div class="bios-line" style="animation-delay: 1.1s">GPU: <span class="value">Pixel Dreams RTX 4090</span>
+            </div>
+            <div class="bios-line" style="animation-delay: 1.3s">&nbsp;</div>
+            <div class="bios-line" style="animation-delay: 1.4s">Detecting skill modules... <span class="ok">[OK]</span>
+            </div>
+            <div class="bios-line" style="animation-delay: 1.7s">Loading projects from disk... <span
+                    class="ok">[OK]</span></div>
+            <div class="bios-line" style="animation-delay: 2.0s">Initializing portfolio.exe... <span
+                    class="ok">[OK]</span></div>
+            <div class="bios-line" style="animation-delay: 2.3s">&nbsp;</div>
+            <div class="bios-line" style="animation-delay: 2.4s">Press any key to continue or wait...</div>
+        </div>
+
+        <!-- Phase 2: XP Loading -->
+        <div class="xp-loading-phase" id="xpLoadPhase">
+            <div class="xp-logo-text">
+                Portfolio<span class="xp-blue">XP</span>
+                <span class="xp-edition">PROFESSIONAL</span>
+            </div>
+            <div class="xp-loading-bar-container">
+                <div class="xp-loading-bar">
+                    <div class="xp-load-block"></div>
+                    <div class="xp-load-block"></div>
+                    <div class="xp-load-block"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 3: Welcome -->
+        <div class="welcome-phase" id="welcomePhase">
+            <div class="welcome-avatar">👤</div>
+            <div class="welcome-text">Welcome</div>
+            <div class="welcome-subtext">Loading your profile...</div>
+        </div>
+    </div>
+
+    <!-- ===== CRT OVERLAY ===== -->
+    <div class="crt-overlay"></div>
+
+    <!-- ===== BACKGROUND VIDEO ===== -->
     <video autoplay muted loop playsinline id="bg-video">
-    <source src="wallpaper2.mp4" type="video/mp4">
-</video>
-    <div class="desktop-icon" onclick="showAbout()">
-        <div class="icon-img">📄</div>
-        <div>Profile.txt</div>
+        <source src="wallpaper2.mp4" type="video/mp4">
+    </video>
+
+    <!-- ===== DESKTOP ICONS ===== -->
+    <div class="desktop-icons-container" id="desktopIcons">
+        <div class="desktop-icon" ondblclick="restoreWindow()">
+            <div class="icon-img">📁</div>
+            <div class="icon-label">Portfolio.exe</div>
+        </div>
+        <div class="desktop-icon" ondblclick="window.open('https://github.com/SlanderDome', '_blank')">
+            <div class="icon-img">🌐</div>
+            <div class="icon-label">GitHub.exe</div>
+        </div>
+        <div class="desktop-icon" ondblclick="window.open('https://linkedin.com/in/your-linkedin', '_blank')">
+            <div class="icon-img">💼</div>
+            <div class="icon-label">LinkedIn.exe</div>
+        </div>
+        <div class="desktop-icon" ondblclick="downloadResume()">
+            <div class="icon-img">📄</div>
+            <div class="icon-label">Resume.pdf</div>
+        </div>
+        <div class="desktop-icon" ondblclick="window.location.href='mailto:swarom66@gmail.com'">
+            <div class="icon-img">📧</div>
+            <div class="icon-label">Email.lnk</div>
+        </div>
     </div>
 
-    <div class="window">
-        
+    <!-- ===== MAIN WINDOW ===== -->
+    <div class="window" id="mainWindow">
+        <!-- Title Bar -->
         <div class="title-bar">
-            <div class="title-bar-text">C:\Users\Swarom\Desktop</div>
+            <div class="title-bar-text">C:\Users\Swarom\Portfolio</div>
             <div class="title-bar-controls">
-                <button aria-label="Minimize">_</button>
+                <button aria-label="Minimize">─</button>
                 <button aria-label="Maximize">□</button>
-                <button aria-label="Close">X</button>
+                <button aria-label="Close">✕</button>
             </div>
         </div>
 
+        <!-- Menu Bar -->
         <div class="menu-bar">
-    
-    <div class="menu-item-container">
-        <div class="menu-item" onclick="toggleMenu('file-menu', event)"><u>F</u>ile</div>
-        <div class="dropdown" id="file-menu">
-            <div class="dropdown-item" onclick="downloadResume()">
-                <span>Save As PDF...</span> <span class="shortcut">Ctrl+S</span>
+            <div class="menu-item-container">
+                <div class="menu-item" onclick="toggleMenu('file-menu', event)"><u>F</u>ile</div>
+                <div class="dropdown" id="file-menu">
+                    <div class="dropdown-item" onclick="downloadResume()">
+                        <span>💾 Save As PDF...</span> <span class="shortcut">Ctrl+S</span>
+                    </div>
+                    <div class="dropdown-item" onclick="window.print()">
+                        <span>🖨️ Print...</span> <span class="shortcut">Ctrl+P</span>
+                    </div>
+                    <div class="dropdown-separator"></div>
+                    <div class="dropdown-item" onclick="actuallyClose()">Exit</div>
+                </div>
             </div>
-            <div class="dropdown-item" onclick="window.print()">
-                <span>Print...</span> <span class="shortcut">Ctrl+P</span>
+
+            <div class="menu-item-container">
+                <div class="menu-item" onclick="toggleMenu('edit-menu', event)"><u>E</u>dit</div>
+                <div class="dropdown" id="edit-menu">
+                    <div class="dropdown-item" onclick="copyEmail()">📋 Copy Email</div>
+                    <div class="dropdown-item" onclick="copyLink()">🔗 Copy Site Link</div>
+                </div>
             </div>
-            <div class="dropdown-separator"></div>
-            <div class="dropdown-item" onclick="actuallyClose()">Exit</div>
+
+            <div class="menu-item-container">
+                <div class="menu-item" onclick="toggleMenu('view-menu', event)"><u>V</u>iew</div>
+                <div class="dropdown" id="view-menu">
+                    <div class="dropdown-item" onclick="toggleMaximize()">🔲 Full Screen</div>
+                    <div class="dropdown-item" onclick="minimizeWindow()">🔽 Minimize</div>
+                    <div class="dropdown-separator"></div>
+                    <div class="dropdown-item" onclick="cycleWallpaper()">🖼️ Change Wallpaper</div>
+                    <div class="dropdown-separator"></div>
+                    <div class="dropdown-item" onclick="location.reload()">🔄 Refresh</div>
+                </div>
+            </div>
+
+            <div class="menu-item-container">
+                <div class="menu-item" onclick="showAbout()"><u>H</u>elp</div>
+            </div>
         </div>
-    </div>
 
-    <div class="menu-item-container">
-        <div class="menu-item" onclick="toggleMenu('edit-menu', event)"><u>E</u>dit</div>
-        <div class="dropdown" id="edit-menu">
-            <div class="dropdown-item" onclick="copyEmail()">Copy Email</div>
-            <div class="dropdown-item" onclick="copyLink()">Copy Site Link</div>
-        </div>
-    </div>
-
-    <div class="menu-item-container">
-        <div class="menu-item" onclick="toggleMenu('view-menu', event)"><u>V</u>iew</div>
-        <div class="dropdown" id="view-menu">
-            <div class="dropdown-item" onclick="toggleMaximize()">Full Screen</div>
-            <div class="dropdown-item" onclick="minimizeWindow()">Minimize</div>
-            <div class="dropdown-separator"></div>
-            <div class="dropdown-item" onclick="location.reload()">Refresh</div>
-        </div>
-    </div>
-
-    <div class="menu-item-container">
-        <div class="menu-item" onclick="showAbout()"><u>H</u>elp</div>
-    </div>
-</div>
-
+        <!-- Window Body -->
         <div class="window-body">
-            
+
+            <!-- Header -->
             <header>
                 <h1>Swarom Firagannavar<span class="blinking-cursor"></span></h1>
                 <p class="role">Computer Engineering Student | Aspiring Software Engineer</p>
@@ -76,220 +158,241 @@
                     <a href="https://github.com/SlanderDome" class="win-btn" target="_blank">
                         <img src="github.svg" alt="" class="btn-icon"> GitHub
                     </a>
-
                     <a href="https://linkedin.com/in/your-linkedin" class="win-btn" target="_blank">
                         <img src="icons.png" alt="" class="btn-icon"> LinkedIn
                     </a>
-
                     <a href="mailto:swarom66@gmail.com" class="win-btn">
-                        <img src="mail.png" alt="" class="btn-icon"> Email 
+                        <img src="mail.png" alt="" class="btn-icon"> Email
                     </a>
-                    
                     <button class="win-btn" onclick="downloadResume()">💾 Download CV</button>
                 </div>
             </header>
 
             <hr>
 
+            <!-- Tabs -->
             <div class="tabs">
-                <div class="tab active" onclick="switchTab(0)">CMD</div>
-                <div class="tab" onclick="switchTab(1)">Projects</div>
-                <div class="tab" onclick="switchTab(2)">Skills</div>
-                <div class="tab" onclick="switchTab(3)">Education</div>
+                <div class="tab active" onclick="switchTab(0)">💻 CMD</div>
+                <div class="tab" onclick="switchTab(1)">📁 Projects</div>
+                <div class="tab" onclick="switchTab(2)">🧩 Skills</div>
+                <div class="tab" onclick="switchTab(3)">🎓 Education</div>
             </div>
 
+            <!-- TAB 0: Terminal -->
             <div class="tab-content active" id="tab-0">
-    <h2>Terminal</h2>
-    <p></p>
-    
-    <div class="cmd-window">
-    <div class="cmd-content" id="cmdOutput">
-        Microsoft(R) Windows 95<br>
-        (C)Copyright Microsoft Corp 1981-1996.<br><br>
-        C:\Users\Visitor> Type 'help' to see commands.<br><br>
-    </div>
-    <div class="cmd-input-line">
-        <span class="cmd-prompt">C:\Users\Visitor></span>
-        <input type="text" id="cmdInput" class="cmd-input" autocomplete="off" autofocus>
-    </div>
-</div>
-</div>
+                <h2>Terminal</h2>
+                <div class="cmd-window" id="cmdWindow">
+                    <div class="cmd-content" id="cmdOutput">
+                        <span class="cmd-ascii"> ____ __ ___ ___ ____ _____</span><br>
+                        <span class="cmd-ascii">| _ \ ___ _ __| |_/ _| ___ | (_) ___ / __ \/ ____|</span><br>
+                        <span class="cmd-ascii">| |_) / _ \| '__| __| |_ / _ \| | |/ _ \ | | | (___ </span><br>
+                        <span class="cmd-ascii">| __/ (_) | | | |_| _| (_) | | | (_) || | |\___ \ </span><br>
+                        <span class="cmd-ascii">|_| \___/|_| \__|_| \___/|_|_|\___(_)|__| ____) |</span><br>
+                        <span class="cmd-ascii"> |_____/ </span><br><br>
+                        <span>PortfolioOS [Version 10.0.2026]</span><br>
+                        <span>(c) Swarom Firagannavar. All rights reserved.</span><br><br>
+                        <span>C:\Users\Visitor> Type '<span class="cmd-highlight">help</span>' to see available
+                            commands.</span><br><br>
+                    </div>
+                    <div class="cmd-input-line">
+                        <span class="cmd-prompt">C:\Users\Visitor></span>
+                        <input type="text" id="cmdInput" class="cmd-input" autocomplete="off" autofocus
+                            spellcheck="false">
+                    </div>
+                </div>
+            </div>
 
-             <div class="tab-content" id="tab-1">
-    <h2>🧮 PROJECTS</h2>
+            <!-- TAB 1: Projects -->
+            <div class="tab-content" id="tab-1">
+                <h2>📁 PROJECTS</h2>
 
-    <div class="section-item">
-        <div class="job-header">
-            <span class="job-title">Cab Booking System</span>
-        </div>
-        <ul>
-            <li>Developed a complete cab booking system as part of project-based learning</li>
-            <li>Implemented authentication and dynamic pricing algorithm</li>
-        </ul>
-        <div class="tags">
-            <span class="tag">HTML</span>
-            <span class="tag">CSS</span>
-            <span class="tag">JavaScript</span>
-        </div>
-    </div>
+                <div class="section-item">
+                    <div class="job-header">
+                        <span class="job-title">🌿 Crop Disease Detection <span class="project-status complete">✅
+                                Complete</span></span>
+                    </div>
+                    <ul>
+                        <li>Built deep learning model to detect crop diseases from leaf images</li>
+                        <li>Used transfer learning and data augmentation to improve accuracy</li>
+                        <li>Integrated Grad-CAM for explainable AI predictions</li>
+                    </ul>
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">TensorFlow</span>
+                        <span class="tag">FastAPI</span>
+                        <span class="tag">Deep Learning</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/SlanderDome" class="win-btn" target="_blank">📂 View Code</a>
+                    </div>
+                </div>
 
-    <div class="section-item">
-        <div class="job-header">
-            <span class="job-title">Term Track System</span>
-        </div>
-        <ul>
-            <li>Course catalog filtering system with favorites using like feature</li>
-            <li>Integrated external API for real-time course data</li>
-        </ul>
-        <div class="tags">
-            <span class="tag">HTML</span>
-            <span class="tag">CSS</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">MySQL</span>
-        </div>
-    </div>
+                <div class="section-item">
+                    <div class="job-header">
+                        <span class="job-title">🚕 Cab Booking System <span class="project-status complete">✅
+                                Complete</span></span>
+                    </div>
+                    <ul>
+                        <li>Developed a complete cab booking system as part of project-based learning</li>
+                        <li>Implemented authentication and dynamic pricing algorithm</li>
+                    </ul>
+                    <div class="tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">JavaScript</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/SlanderDome" class="win-btn" target="_blank">📂 View Code</a>
+                    </div>
+                </div>
 
-    <div class="section-item">
-        <div class="job-header">
-            <span class="job-title">Crop Disease Detection</span>
-        </div>
-        <ul>
-            <li>Built deep learning model to detect crop diseases from leaf images</li>
-            <li>Used transfer learning and data augmentation to improve accuracy</li>
-        </ul>
-        <div class="tags">
-            <span class="tag">Python</span>
-            <span class="tag">TensorFlow</span>
-            <span class="tag">FastAPI</span>
-            <span class="tag">Deep Learning</span>
-        </div>
-    </div>
+                <div class="section-item">
+                    <div class="job-header">
+                        <span class="job-title">📚 Term Track System <span class="project-status complete">✅
+                                Complete</span></span>
+                    </div>
+                    <ul>
+                        <li>Course catalog filtering system with favorites using like feature</li>
+                        <li>Integrated external API for real-time course data</li>
+                    </ul>
+                    <div class="tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">MySQL</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/SlanderDome" class="win-btn" target="_blank">📂 View Code</a>
+                    </div>
+                </div>
 
-    <div class="section-item">
-        <div class="job-header">
-            <span class="job-title">Movie Search App</span>
-        </div>
-        <ul>
-            <li>React-based movie search application with dark mode</li>
-            <li>Used OMDB API for real-time movie data</li>
-        </ul>
-        <div class="tags">
-            <span class="tag">React</span>
-            <span class="tag">API</span>
-            <span class="tag">CSS</span>
-        </div>
-    </div>
-</div>
+                <div class="section-item">
+                    <div class="job-header">
+                        <span class="job-title">🎬 Movie Search App <span class="project-status complete">✅
+                                Complete</span></span>
+                    </div>
+                    <ul>
+                        <li>React-based movie search application with dark mode</li>
+                        <li>Used OMDB API for real-time movie data</li>
+                    </ul>
+                    <div class="tags">
+                        <span class="tag">React</span>
+                        <span class="tag">API</span>
+                        <span class="tag">CSS</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/SlanderDome" class="win-btn" target="_blank">📂 View Code</a>
+                    </div>
+                </div>
+            </div>
 
-            
+            <!-- TAB 2: Skills -->
             <div class="tab-content" id="tab-2">
                 <h2>🧩 SKILLS</h2>
-                
+
                 <div class="skill-item">
                     <div class="skill-name">
                         <span>JavaScript</span>
-                        <span></span>
+                        <span class="skill-pct" data-pct="85">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--target-width: 85%"></div>
                     </div>
                     <div class="code-bar">
-    <div class="code-track" style="animation-duration: 11s;">
-        <span class="code">const sum = (a, b) => a + b;</span>
-        <span class="code">let user = { name: "Swarom" };</span>
-        <span class="code">async function fetchData() {}</span>
-    </div>
-</div>
-
+                        <div class="code-track" style="animation-duration: 11s;">
+                            <span class="code">const sum = (a, b) => a + b;</span>
+                            <span class="code">let user = { name: "Swarom" };</span>
+                            <span class="code">async function fetchData() {}</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="skill-item">
                     <div class="skill-name">
                         <span>React</span>
-                        <span></span>
+                        <span class="skill-pct" data-pct="75">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--target-width: 75%"></div>
                     </div>
                     <div class="code-bar">
-    <div class="code-track" style="animation-duration: 11s;">
-        <span class="code">const [state, setState] = useState()</span>
-        <span class="code">useEffect(() => {}, [])</span>
-        <span class="code">&lt;Component /&gt;</span>
-    </div>
-</div>
-
+                        <div class="code-track" style="animation-duration: 11s;">
+                            <span class="code">const [state, setState] = useState()</span>
+                            <span class="code">useEffect(() => {}, [])</span>
+                            <span class="code">&lt;Component /&gt;</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="skill-item">
                     <div class="skill-name">
                         <span>Java</span>
-                        <span></span>
+                        <span class="skill-pct" data-pct="80">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--target-width: 80%"></div>
                     </div>
                     <div class="code-bar">
-    <div class="code-track" style="animation-duration: 11s;">
-        <span class="code">public class Main {}</span>
-        <span class="code">public static void main(String[] args)</span>
-        <span class="code">System.out.println("Hello World");</span>
-        <span class="code">int sum = a + b;</span>
-        <span class="code">ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();</span>
-        <span class="code">if(user != null) {}</span>
-    </div>
-</div>
-
+                        <div class="code-track" style="animation-duration: 11s;">
+                            <span class="code">public class Main {}</span>
+                            <span class="code">public static void main(String[] args)</span>
+                            <span class="code">System.out.println("Hello World");</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="skill-item">
                     <div class="skill-name">
-                        <span>Python </span>
-                        <span></span>
+                        <span>Python</span>
+                        <span class="skill-pct" data-pct="82">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--target-width: 82%"></div>
                     </div>
                     <div class="code-bar">
-    <div class="code-track" style="animation-duration: 11s;">
-        <span class="code">def predict(model, x):</span>
-        <span class="code">import tensorflow as tf</span>
-        <span class="code">return model(x)</span>
-    </div>
-</div>
-
+                        <div class="code-track" style="animation-duration: 11s;">
+                            <span class="code">def predict(model, x):</span>
+                            <span class="code">import tensorflow as tf</span>
+                            <span class="code">return model(x)</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="skill-item">
                     <div class="skill-name">
                         <span>SQL</span>
-                        <span></span>
+                        <span class="skill-pct" data-pct="70">0%</span>
                     </div>
-<div class="code-bar">
-    <div class="code-track" style="animation-duration: 13s;">
-        <span class="code">SELECT * FROM users;</span>
-        <span class="code">WHERE age &gt; 18;</span>
-        <span class="code">INSERT INTO orders VALUES (...);</span>
-        <span class="code">UPDATE users SET name='Swarom';</span>
-        <span class="code">DELETE FROM logs WHERE id=5;</span>
-        <span class="code">JOIN orders ON users.id = orders.user_id;</span>
-    </div>
-</div>
-
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--target-width: 70%"></div>
+                    </div>
+                    <div class="code-bar">
+                        <div class="code-track" style="animation-duration: 13s;">
+                            <span class="code">SELECT * FROM users;</span>
+                            <span class="code">WHERE age &gt; 18;</span>
+                            <span class="code">INSERT INTO orders VALUES (...);</span>
+                            <span class="code">JOIN orders ON users.id = orders.user_id;</span>
+                        </div>
+                    </div>
                 </div>
-
-               
 
                 <br>
                 <p><strong>Additional Skills:</strong></p>
-<div class="tags">
-    
-    <span class="tag">HTML</span>
-    <span class="tag">CSS</span>
-    
-    <span class="tag">TensorFlow</span>
-    <span class="tag">FastAPI</span>
-   
-    <span class="tag">MongoDB</span>
-    <span class="tag">Git</span>
-    <span class="tag">GitHub</span>
-    
-</div>
-
+                <div class="tags">
+                    <span class="tag">HTML</span>
+                    <span class="tag">CSS</span>
+                    <span class="tag">TensorFlow</span>
+                    <span class="tag">FastAPI</span>
+                    <span class="tag">MongoDB</span>
+                    <span class="tag">Git</span>
+                    <span class="tag">GitHub</span>
+                </div>
             </div>
 
+            <!-- TAB 3: Education -->
             <div class="tab-content" id="tab-3">
-               
                 <h2>🎓 EDUCATION</h2>
-                
+
                 <div class="section-item">
                     <div class="job-header">
                         <div>
@@ -297,10 +400,10 @@
                         </div>
                         <span class="date">2022 - 2026</span>
                     </div>
-                    <p><strong>MIT-ADT University</strong> - Pune, Maharashtra</p>
-                    <p>CGPA: 7.78 </p>
-                    
+                    <p><strong>MIT-ADT University</strong> — Pune, Maharashtra</p>
+                    <p>CGPA: 7.78</p>
                 </div>
+
                 <div class="section-item">
                     <div class="job-header">
                         <div>
@@ -308,10 +411,10 @@
                         </div>
                         <span class="date">2022</span>
                     </div>
-                    <p><strong>Class 12</strong> - Pune, Maharashtra</p>
-                    <p>Pass: First class, 75% </p>
-                    
+                    <p><strong>Class 12</strong> — Pune, Maharashtra</p>
+                    <p>Pass: First class, 75%</p>
                 </div>
+
                 <div class="section-item">
                     <div class="job-header">
                         <div>
@@ -319,48 +422,46 @@
                         </div>
                         <span class="date">2020</span>
                     </div>
-                    <p><strong>Class 10</strong> - Pune, Maharashtra</p>
-                    <p>Pass: First class with Distiction, 87% </p>
-                    
+                    <p><strong>Class 10</strong> — Pune, Maharashtra</p>
+                    <p>Pass: First class with Distinction, 87%</p>
                 </div>
 
                 <br>
 
                 <h2>📜 CERTIFICATIONS</h2>
-                
+
                 <div class="section-item">
-                    <p>✓ <strong>Cisco Networking Basics</strong> </p>
-                    <p>✓ <strong>HTML, CSS & JavaScript – Coursera</strong> </p>
-                    <p>✓ <strong>Relational Database Design – Coursera</strong> </p>
-                    <p>✓ <strong>AWS Academy Cloud Foundations</strong> </p>
-                     <p>✓ <strong>Fundamentals of Git – Coursera</strong> </p>
-
+                    <p>✅ <strong>Cisco Networking Basics</strong></p>
+                    <p>✅ <strong>HTML, CSS & JavaScript — Coursera</strong></p>
+                    <p>✅ <strong>Relational Database Design — Coursera</strong></p>
+                    <p>✅ <strong>AWS Academy Cloud Foundations</strong></p>
+                    <p>✅ <strong>Fundamentals of Git — Coursera</strong></p>
                 </div>
-
-                <br>
-
-                
-
+            </div>
         </div>
-        </div> <div class="status-bar">
-            <div class="status-panel">Ready</div>
-            <div class="status-panel fixed" id="visitor-count">Visitors: 1337</div>
-            <div class="status-panel fixed" id="load-time">Load: 0.3s</div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-panel">✅ Ready</div>
+            <div class="status-panel fixed" id="visitor-count">👥 Visitors: 1337</div>
+            <div class="status-panel fixed" id="load-time">⚡ Load: 0.3s</div>
         </div>
     </div>
 
+    <!-- ===== ABOUT MODAL ===== -->
     <div class="modal" id="aboutModal">
         <div class="dialog">
             <div class="title-bar">
-                <div class="title-bar-text">About Profile.txt</div>
+                <div class="title-bar-text">About Portfolio.exe</div>
                 <div class="title-bar-controls">
-                    <button onclick="closeAbout()">X</button>
+                    <button onclick="closeAbout()">✕</button>
                 </div>
             </div>
             <div class="dialog-body">
-                <h3> Portfolio v?</h3>
-                <p>idk myself</p>
-                <p> Swarom Firagannavar</p>
+                <h3>📁 Portfolio.exe v2.0</h3>
+                <p style="margin: 10px 0;">A Windows XP themed portfolio experience</p>
+                <p>Built with ❤️ by <strong>Swarom Firagannavar</strong></p>
+                <p style="color: #888; font-size: 12px; margin-top: 8px;">HTML • CSS • JavaScript • Pure Nostalgia</p>
                 <div class="dialog-buttons">
                     <button class="win-btn" onclick="closeAbout()">OK</button>
                 </div>
@@ -368,99 +469,195 @@
         </div>
     </div>
 
+    <!-- ===== CLOSE MODAL ===== -->
     <div class="modal" id="closeModal">
         <div class="dialog">
             <div class="title-bar">
-                <div class="title-bar-text">Exit Confirmation</div>
+                <div class="title-bar-text">⚠️ Exit Confirmation</div>
             </div>
             <div class="dialog-body">
-                <p>Are you sure you want to close this window?</p>
-                <p>💡 Tip: You can still hire me!</p>
+                <p style="font-size: 15px;">Are you sure you want to close this window?</p>
+                <p style="margin-top: 8px;">💡 <em>Tip: You can still hire me!</em></p>
                 <div class="dialog-buttons">
-                    <button class="win-btn" onclick="closeCloseDialog()">No</button>
-                    <button class="win-btn" onclick="actuallyClose()">Yes</button>
+                    <button class="win-btn" onclick="closeCloseDialog()">No, Stay</button>
+                    <button class="win-btn" onclick="actuallyClose()">Yes, Close</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- ===== SHUTDOWN MODAL ===== -->
+    <div class="modal" id="shutdownModal">
+        <div class="dialog">
+            <div class="title-bar">
+                <div class="title-bar-text">Shut Down Windows</div>
+                <div class="title-bar-controls">
+                    <button onclick="closeShutdown()">✕</button>
+                </div>
+            </div>
+            <div class="dialog-body">
+                <h3>What do you want the computer to do?</h3>
+                <div style="text-align: left; margin: 20px 0;">
+                    <label style="display: block; margin: 10px 0; cursor: pointer;">
+                        <input type="radio" name="shutdown" checked> Shut down
+                    </label>
+                    <label style="display: block; margin: 10px 0; cursor: pointer;">
+                        <input type="radio" name="shutdown"> Restart
+                    </label>
+                    <label style="display: block; margin: 10px 0; cursor: pointer;">
+                        <input type="radio" name="shutdown"> Log off
+                    </label>
+                </div>
+                <div class="dialog-buttons">
+                    <button class="win-btn" onclick="performShutdown()">OK</button>
+                    <button class="win-btn" onclick="closeShutdown()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- ===== BSOD SCREEN ===== -->
+    <div class="bsod-screen" id="bsodScreen">
+        <div class="bsod-content">
+            <span class="bsod-title"> Portfolio.exe </span>
+            <div class="bsod-text">
+                A fatal exception 0E has occurred at 0028:C034B0E7 in VXD VMM(01) +<br>
+                0001B0E7. The current application will be terminated.<br><br>
+                * Press any key to terminate the current application.<br>
+                * Press CTRL+ALT+DEL again to restart your computer. You will<br>
+                &nbsp;&nbsp;lose any unsaved information in all applications.<br><br>
+                Error: TOO_MUCH_TALENT_DETECTED<br>
+                Module: swarom_skills.sys<br>
+                Address: 0x00000HIRE_ME
+            </div>
+            <div class="bsod-recover">Press any key to continue _</div>
+        </div>
+    </div>
 
+    <!-- ===== RIGHT-CLICK CONTEXT MENU ===== -->
+    <div class="context-menu" id="contextMenu">
+        <div class="context-menu-item" onclick="location.reload()">
+            <span class="ctx-icon">🔄</span> Refresh
+        </div>
+        <div class="context-menu-separator"></div>
+        <div class="context-menu-item" onclick="cycleWallpaper()">
+            <span class="ctx-icon">🖼️</span> Change Wallpaper
+        </div>
+        <div class="context-menu-item" onclick="restoreWindow()">
+            <span class="ctx-icon">📁</span> Open Portfolio.exe
+        </div>
+        <div class="context-menu-separator"></div>
+        <div class="context-menu-item" onclick="copyLink()">
+            <span class="ctx-icon">🔗</span> Copy Link
+        </div>
+        <div class="context-menu-item" onclick="copyEmail()">
+            <span class="ctx-icon">📋</span> Copy Email
+        </div>
+        <div class="context-menu-separator"></div>
+        <div class="context-menu-item" onclick="showAbout()">
+            <span class="ctx-icon">ℹ️</span> Properties
+        </div>
+    </div>
+
+    <!-- ===== TASKBAR ===== -->
     <div class="taskbar">
-        <div class="start-btn">
-            <div class="start-menu" id="startMenu">
-    <div class="start-menu-header">Windows 98</div>
-    <div class="start-menu-items">
-        <div class="start-menu-item programs has-arrow">
-            Programs
-            <div class="submenu">
-                <div class="start-menu-item">Accessories</div>
-                <div class="start-menu-item">MS-DOS Prompt</div>
-                <div class="start-menu-item">Internet Explorer</div>
-                <div class="start-menu-item">Windows Explorer</div>
-            </div>
-        </div>
-        <div class="start-menu-item documents has-arrow">
-            Documents
-            <div class="submenu">
-                <div class="start-menu-item">Resume.doc</div>
-                <div class="start-menu-item">Projects.txt</div>
-                <div class="start-menu-item">Portfolio.pdf</div>
-            </div>
-        </div>
-        <div class="start-menu-item settings has-arrow">
-            Settings
-            <div class="submenu">
-                <div class="start-menu-item">Control Panel</div>
-                <div class="start-menu-item">Printers</div>
-                <div class="start-menu-item">Taskbar & Start Menu</div>
-            </div>
-        </div>
-        <div class="start-menu-item find">Find</div>
-        <div class="start-menu-item help">Help</div>
-        <div class="start-menu-item run">Run...</div>
-        <div class="start-menu-separator"></div>
-        <div class="start-menu-item shutdown" onclick="showShutdownDialog()">Shut Down...</div>
-    </div>
-</div>
-            <img src="logo.png" alt="" class="start-icon"> Start
+        <div class="start-btn" id="startBtn">
+            <img src="logo.png" alt="" class="start-icon"> start
         </div>
 
-        <div class="taskbar-item" onclick="restoreWindow()">
-            📄 Profile  
+        <div class="taskbar-separator"></div>
+
+        <div class="taskbar-item active-task" id="taskbarItem" onclick="restoreWindow()">
+            📁 Portfolio.exe
         </div>
 
-        <div class="clock" id="clock">12:00 PM</div>
-    </div>
-<div class="modal" id="shutdownModal">
-    <div class="dialog">
-        <div class="title-bar">
-            <div class="title-bar-text">Shut Down Windows</div>
-            <div class="title-bar-controls">
-                <button onclick="closeShutdown()">X</button>
-            </div>
-        </div>
-        <div class="dialog-body">
-            <h3>What do you want the computer to do?</h3>
-            <div style="text-align: left; margin: 20px 0;">
-                <label style="display: block; margin: 10px 0; cursor: pointer;">
-                    <input type="radio" name="shutdown" checked> Shut down
-                </label>
-                <label style="display: block; margin: 10px 0; cursor: pointer;">
-                    <input type="radio" name="shutdown"> Restart
-                </label>
-                <label style="display: block; margin: 10px 0; cursor: pointer;">
-                    <input type="radio" name="shutdown"> Log off
-                </label>
-            </div>
-            <div class="dialog-buttons">
-                <button class="win-btn" onclick="performShutdown()">OK</button>
-                <button class="win-btn" onclick="closeShutdown()">Cancel</button>
-            </div>
+        <div class="system-tray">
+            <span class="tray-icon">🔊</span>
+            <span class="tray-icon">🔌</span>
+            <span class="clock" id="clock">12:00 PM</span>
         </div>
     </div>
-</div>
+
+    <!-- ===== START MENU ===== -->
+    <div class="start-menu" id="startMenu">
+        <div class="start-menu-header">
+            <div class="start-menu-avatar">👤</div>
+            <div>
+                <div class="start-menu-user-name">Swarom</div>
+            </div>
+        </div>
+        <div class="start-menu-body">
+            <div class="start-menu-left">
+                <div class="start-menu-item" onclick="restoreWindow(); closeStartMenu();">
+                    <span class="item-icon">📁</span>
+                    <span class="item-text">
+                        Portfolio.exe
+                        <span class="item-desc">Open portfolio window</span>
+                    </span>
+                </div>
+                <div class="start-menu-item" onclick="switchTab(0); restoreWindow(); closeStartMenu();">
+                    <span class="item-icon">💻</span>
+                    <span class="item-text">
+                        Command Prompt
+                        <span class="item-desc">Interactive terminal</span>
+                    </span>
+                </div>
+                <div class="start-menu-item"
+                    onclick="window.open('https://github.com/SlanderDome', '_blank'); closeStartMenu();">
+                    <span class="item-icon">🌐</span>
+                    <span class="item-text">
+                        GitHub
+                        <span class="item-desc">View my repositories</span>
+                    </span>
+                </div>
+                <div class="start-menu-separator"></div>
+                <div class="start-menu-item" onclick="downloadResume(); closeStartMenu();">
+                    <span class="item-icon">📄</span>
+                    <span class="item-text">
+                        Resume.pdf
+                        <span class="item-desc">Download my resume</span>
+                    </span>
+                </div>
+                <div class="start-menu-item" onclick="switchTab(1); restoreWindow(); closeStartMenu();">
+                    <span class="item-icon">📂</span>
+                    <span class="item-text">
+                        My Projects
+                        <span class="item-desc">View all projects</span>
+                    </span>
+                </div>
+            </div>
+            <div class="start-menu-right">
+                <div class="start-menu-item" onclick="switchTab(2); restoreWindow(); closeStartMenu();">
+                    <span class="item-icon">🧩</span>
+                    <span class="item-text">Skills</span>
+                </div>
+                <div class="start-menu-item" onclick="switchTab(3); restoreWindow(); closeStartMenu();">
+                    <span class="item-icon">🎓</span>
+                    <span class="item-text">Education</span>
+                </div>
+                <div class="start-menu-separator" style="background: rgba(255,255,255,0.2);"></div>
+                <div class="start-menu-item" onclick="cycleWallpaper(); closeStartMenu();">
+                    <span class="item-icon">🖼️</span>
+                    <span class="item-text">Change Wallpaper</span>
+                </div>
+                <div class="start-menu-item" onclick="showAbout(); closeStartMenu();">
+                    <span class="item-icon">ℹ️</span>
+                    <span class="item-text">About</span>
+                </div>
+                <div class="start-menu-separator" style="background: rgba(255,255,255,0.2);"></div>
+                <div class="start-menu-item"
+                    onclick="window.location.href='mailto:swarom66@gmail.com'; closeStartMenu();">
+                    <span class="item-icon">📧</span>
+                    <span class="item-text">Contact Me</span>
+                </div>
+            </div>
+        </div>
+        <div class="start-menu-footer">
+            <button onclick="showShutdownDialog()">🔌 Shut Down</button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
+
 </html>
