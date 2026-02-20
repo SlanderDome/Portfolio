@@ -68,9 +68,6 @@ function runBootSequence() {
 
 // ================= DESKTOP INIT =================
 function initDesktop() {
-    // Animate skill bars when Skills tab is visible
-    animateSkillBars();
-
     // Focus terminal input
     const cmdInput = document.getElementById('cmdInput');
     if (cmdInput) cmdInput.focus();
@@ -106,7 +103,7 @@ function switchTab(index) {
 
     // If switching to Skills tab, animate progress bars
     if (index === 2) {
-        setTimeout(animateSkillBars, 100);
+        // animation logic removed
     }
 
     // Focus terminal if CMD tab
@@ -116,30 +113,6 @@ function switchTab(index) {
     }
 }
 
-// ================= SKILL BAR ANIMATION =================
-function animateSkillBars() {
-    const fills = document.querySelectorAll('.progress-fill');
-    fills.forEach((fill, i) => {
-        fill.classList.remove('animate');
-        fill.style.width = '0%';
-        setTimeout(() => {
-            fill.classList.add('animate');
-        }, 100 + i * 200);
-    });
-
-    // Animate percentage labels
-    const pcts = document.querySelectorAll('.skill-pct');
-    pcts.forEach((pct) => {
-        const target = parseInt(pct.dataset.pct) || 0;
-        let current = 0;
-        const step = Math.ceil(target / 30);
-        const interval = setInterval(() => {
-            current = Math.min(current + step, target);
-            pct.textContent = current + '%';
-            if (current >= target) clearInterval(interval);
-        }, 50);
-    });
-}
 
 // ================= MODALS =================
 function showAbout() {
@@ -426,20 +399,11 @@ function triggerBSOD() {
 }
 
 // ================= STATUS BAR =================
-let visitors = 1337;
 function initStatusBar() {
-    const visitorEl = document.getElementById('visitor-count');
-    if (visitorEl) {
-        setInterval(() => {
-            visitors++;
-            visitorEl.textContent = `👥 Visitors: ${visitors}`;
-        }, 5000);
-    }
-
     const loadEl = document.getElementById('load-time');
     if (loadEl) {
         const loadTime = (Math.random() * 0.5 + 0.2).toFixed(2);
-        loadEl.textContent = `⚡ Load: ${loadTime}s`;
+        loadEl.textContent = `Load: ${loadTime}s`;
     }
 }
 
@@ -564,32 +528,26 @@ function processCommand(command, output) {
         case "skills":
             output.innerHTML += `<br>`;
             output.innerHTML += `<span class="cmd-highlight"> LOADED MODULES:</span><br><br>`;
-            output.innerHTML += `  JavaScript  <span class="cmd-success">████████░░</span> 85%<br>`;
-            output.innerHTML += `  Java        <span class="cmd-success">████████░░</span> 80%<br>`;
-            output.innerHTML += `  Python      <span class="cmd-success">████████░░</span> 82%<br>`;
-            output.innerHTML += `  React       <span class="cmd-success">███████░░░</span> 75%<br>`;
-            output.innerHTML += `  SQL         <span class="cmd-success">███████░░░</span> 70%<br>`;
-            output.innerHTML += `  HTML/CSS    <span class="cmd-success">█████████░</span> 90%<br>`;
-            output.innerHTML += `<br>`;
-            output.innerHTML += `  <span class="cmd-info">Additional:</span> TensorFlow, FastAPI, MongoDB, Git<br>`;
+            output.innerHTML += `  <span class="cmd-info">Languages:</span>      Python · Java · JavaScript (ES6+) · SQL<br>`;
+            output.innerHTML += `  <span class="cmd-info">AI / ML:</span>        TensorFlow/Keras · Grad-CAM/XAI · GenAI · Computer Vision<br>`;
+            output.innerHTML += `  <span class="cmd-info">Web Dev:</span>        FastAPI · HTML5/CSS3 · Firebase · REST APIs<br>`;
+            output.innerHTML += `  <span class="cmd-info">Core Concepts:</span>  DSA · OOP · REST APIs · Async/Await<br>`;
+            output.innerHTML += `  <span class="cmd-info">Tools:</span>          Git/GitHub · Postman · Gemini API · Hugging Face · VS Code · AWS<br>`;
             output.innerHTML += `<br>`;
             break;
 
         case "projects":
             output.innerHTML += `<br>`;
             output.innerHTML += `<span class="cmd-highlight"> PROJECT DIRECTORY:</span><br><br>`;
-            output.innerHTML += `  <span class="cmd-info">[1]</span> 🌿 Crop Disease Detection<br>`;
-            output.innerHTML += `      Python | TensorFlow | FastAPI | Deep Learning<br>`;
-            output.innerHTML += `      Status: <span class="cmd-success">COMPLETE</span><br><br>`;
+            output.innerHTML += `  <span class="cmd-info">[1]</span> 🌿 Foliage Care — AI Plant Pathologist<br>`;
+            output.innerHTML += `      Python · FastAPI · TensorFlow · Gemini 2.5-Flash · Pix2Pix · Firebase · Chart.js<br>`;
+            output.innerHTML += `      Accuracy: <span class="cmd-success">99.27%</span> | 38 disease categories | XAI Grad-CAM | ~500ms latency<br><br>`;
             output.innerHTML += `  <span class="cmd-info">[2]</span> 🚕 Cab Booking System<br>`;
             output.innerHTML += `      HTML | CSS | JavaScript<br>`;
-            output.innerHTML += `      Status: <span class="cmd-success">COMPLETE</span><br><br>`;
+            output.innerHTML += `      Optimized dispatch platform with real-time tracking & dynamic pricing metrics<br><br>`;
             output.innerHTML += `  <span class="cmd-info">[3]</span> 📚 Term Track System<br>`;
             output.innerHTML += `      HTML | CSS | JavaScript | MySQL<br>`;
-            output.innerHTML += `      Status: <span class="cmd-success">COMPLETE</span><br><br>`;
-            output.innerHTML += `  <span class="cmd-info">[4]</span> 🎬 Movie Search App<br>`;
-            output.innerHTML += `      React | API | CSS<br>`;
-            output.innerHTML += `      Status: <span class="cmd-success">COMPLETE</span><br>`;
+            output.innerHTML += `      High-concurrency relational filtering with academic API integration & caching<br>`;
             output.innerHTML += `<br>`;
             break;
 
