@@ -695,6 +695,11 @@ function performShutdown() {
     }
 }
 
+// ================= MOBILE HELPERS =================
+function isMobile() {
+    return window.innerWidth <= 768 || ('ontouchstart' in window);
+}
+
 // ================= MAIN INITIALIZATION =================
 document.addEventListener('DOMContentLoaded', () => {
     // Get DOM references
@@ -713,8 +718,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Status bar
     initStatusBar();
 
-    // Make window draggable
-    if (win) makeDraggable(win);
+    // Make window draggable only on desktop
+    if (win && !isMobile()) makeDraggable(win);
 
     // Button wiring
     const minBtn = document.querySelector('[aria-label="Minimize"]');
@@ -745,16 +750,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // Terminal
     initTerminal();
 
-    // Context menu
-    initContextMenu();
+    // Context menu (desktop only)
+    if (!isMobile()) initContextMenu();
 
-    // Desktop icon selection
+    // Desktop icon selection + touch support
     const icons = document.querySelectorAll('.desktop-icon');
     icons.forEach(icon => {
+        // Regular click — select icon
         icon.addEventListener('click', function (e) {
             icons.forEach(i => i.classList.remove('selected'));
             this.classList.add('selected');
         });
+
+        // Touch: double-tap fires the dblclick action on mobile
+        if ('ontouchstart' in window) {
+            let tapTimer = null;
+            icon.addEventListener('touchend', function (e) {
+                if (tapTimer) {
+                    clearTimeout(tapTimer);
+                    tapTimer = null;
+                    icon.dispatchEvent(new MouseEvent('dblclick', { bubbles: true }));
+                } else {
+                    tapTimer = setTimeout(() => {
+                        tapTimer = null;
+                    }, 400);
+                }
+            });
+        }
     });
 
     // Deselect icons on desktop click
@@ -764,9 +786,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Double-click title bar to maximize
+    // Double-click title bar to maximize (desktop only)
     const titleBar = win ? win.querySelector('.title-bar') : null;
-    if (titleBar) {
+    if (titleBar && !isMobile()) {
         titleBar.addEventListener('dblclick', toggleMaximize);
+    }
+
+    // On mobile: scroll terminal input into view when focused (avoid keyboard covering it)
+    if (isMobile()) {
+        const cmdInput = document.getElementById('cmdInput');
+        if (cmdInput) {
+            cmdInput.addEventListener('focus', () => {
+                setTimeout(() => {
+                    cmdInput.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 350);
+            });
+        }
+
+        // Force window to fill screen on mobile
+        if (win) {
+            win.style.position = 'relative';
+            win.style.top = '0';
+            win.style.left = '0';
+            win.style.width = '100vw';
+            win.style.maxWidth = '100vw';
+            win.style.margin = '0';
+            win.style.borderRadius = '0';
+        }
     }
 });
