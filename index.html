@@ -206,82 +206,69 @@
             <div class="tab-content" id="tab-1">
                 <h2>📁 PROJECTS</h2>
 
-                <!-- FOLIAGE CARE — Flagship Project -->
+                <!-- FOLIAGE CARE — Flagship Project (from resume) -->
                 <div class="section-item">
                     <div class="job-header">
-                        <span class="job-title"> Foliage Care — AI Plant Pathologist &amp; Digital Greenhouse</span>
+                        <span class="job-title">Foliage Care — AI Plant Pathologist &amp; Digital Greenhouse</span>
+                        <span class="date">2023 — 2025</span>
                     </div>
-                    <p style="font-size:12px; color:#888; margin: 4px 0 8px 0;">Python (FastAPI · TensorFlow/Keras) ·
-                        JavaScript (Chart.js) · Firebase · Google Gemini 2.5-Flash · Hugging Face (Pix2Pix)
-                    </p>
+                    <p style="font-size:12px; color:#888; margin: 4px 0 8px 0;">Python · TensorFlow/Keras · FastAPI ·
+                        Firebase · Google Gemini · Hugging Face</p>
                     <ul>
-                        <li>Engineered deep learning model achieving <strong>99.27% validation accuracy</strong>
-                            classifying <strong>38 disease categories</strong> across 6 crop types (14,500+ labeled leaf
-                            images) using <strong>MobileNetV2 transfer learning</strong> (2.4M params, 9.25MB)</li>
-                        <li>Architected <strong>Explainable AI (XAI)</strong> module using <strong>TensorFlow
-                                GradientTape / Grad-CAM</strong> to generate heatmaps over infected regions (lesions,
-                            fungal spots), solving the black-box problem in automated plant pathology</li>
-                        <li>Built <strong>high-concurrency FastAPI backend</strong> achieving <strong>~500ms inference
-                                latency</strong>; integrated async request handling + LLM-based pre-inference validation
-                            that eliminated 100% of non-plant compute costs</li>
-                        <li>Designed <strong>multi-modal AI orchestration</strong> combining CNN predictions with
-                            <strong>Google Gemini 2.5-Flash</strong>, GPS, and regional context (Kharif/Rabi seasons) to
-                            deliver localized expert-level treatment plans
-                        </li>
-                        <li>Integrated <strong>Hugging Face Instruct-Pix2Pix</strong> for generative disease-progression
-                            simulations — visual forecasts of untreated plant conditions to communicate treatment
-                            urgency</li>
-
+                        <li>Developed a MobileNetV2-based classifier for multi-crop leaf disease detection (38 classes,
+                            14k+ images). Portable model (~2.4M params) with production-ready inference.</li>
+                        <li>Added explainability using Grad-CAM to surface lesion regions and build trust with end
+                            users.</li>
+                        <li>Deployed an async FastAPI inference service with caching, monitoring, and integration to
+                            a guidance pipeline that produces treatment recommendations.</li>
                     </ul>
                     <div class="tags">
                         <span class="tag">Python</span>
                         <span class="tag">TensorFlow</span>
                         <span class="tag">FastAPI</span>
-                        <span class="tag">Grad-CAM / XAI</span>
-                        <span class="tag">Gemini LLM</span>
-                        <span class="tag">Pix2Pix</span>
-                        <span class="tag">Firebase</span>
-                        <span class="tag">Chart.js</span>
+                        <span class="tag">Grad-CAM</span>
+                        <span class="tag">Gemini</span>
+                        <span class="tag">Hugging Face</span>
                     </div>
                 </div>
 
+                <!-- CAB BOOKING SYSTEM (resume) -->
                 <div class="section-item">
                     <div class="job-header">
-                        <span class="job-title"> Cab Booking System</span>
+                        <span class="job-title">Cab Booking System</span>
+                        <span class="date">2022 — 2023</span>
                     </div>
+                    <p style="font-size:12px; color:#888; margin: 4px 0 8px 0;">Full-stack · Real-time dispatch · JWT auth</p>
                     <ul>
-                        <li>Optimized a full-stack dispatch platform with real-time ride tracking and high-fidelity
-                            state management</li>
-                        <li>Engineered a dynamic pricing heuristic to adjust fares based on real-time demand-supply
-                            metrics and route complexity</li>
-                        <li>Implemented secure JWT-based authentication and restricted API access layers ensuring robust
-                            data integrity</li>
+                        <li>Built a dispatch platform with real-time vehicle tracking and stateful front-end
+                            synchronization.</li>
+                        <li>Implemented dynamic pricing and secure JWT-based authentication across services.</li>
                     </ul>
                     <div class="tags">
-                        <span class="tag">HTML</span>
-                        <span class="tag">CSS</span>
                         <span class="tag">JavaScript</span>
+                        <span class="tag">Node.js</span>
+                        <span class="tag">WebSockets</span>
                         <span class="tag">JWT</span>
                     </div>
                 </div>
 
+                <!-- TERM TRACK SYSTEM (resume) -->
                 <div class="section-item">
                     <div class="job-header">
-                        <span class="job-title"> Term Track System</span>
+                        <span class="job-title">Term Track System</span>
+                        <span class="date">2021 — 2022</span>
                     </div>
+                    <p style="font-size:12px; color:#888; margin: 4px 0 8px 0;">MySQL · API integrations · Client-side caching</p>
                     <ul>
-                        <li>Architected a robust relational database schema in MySQL to handle high-concurrency course
-                            filtering and selection</li>
-                        <li>Integrated third-party academic APIs with debounced search and client-side caching for
-                            high-fidelity UX</li>
-                        <li>Developed a persistent 'Favorites' synchronization layer with relational mapping for
-                            real-time course data tracking</li>
+                        <li>Designed a scalable relational schema and implemented debounced search with client-side
+                            caching for fast course lookup.</li>
+                        <li>Built a favorites sync layer to persist user selections across sessions.</li>
                     </ul>
                     <div class="tags">
-                        <span class="tag">HTML</span>
-                        <span class="tag">CSS</span>
-                        <span class="tag">JavaScript</span>
                         <span class="tag">MySQL</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">REST</span>
+                        <span class="tag">Caching</span>
                     </div>
                 </div>
             </div>
