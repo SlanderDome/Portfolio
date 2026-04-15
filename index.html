@@ -18,14 +18,14 @@
         <!-- Phase 1: BIOS -->
         <div class="bios-phase" id="biosPhase">
             <div class="bios-line" style="animation-delay: 0s"><span class="highlight">SwaromBIOS v4.2.0</span> —
-                Portfolio System</div>
-            <div class="bios-line" style="animation-delay: 0.3s">Copyright (C) 2026, Swarom Industries Ltd.</div>
+                Portfolio </div>
+            <div class="bios-line" style="animation-delay: 0.3s">Copyright (C) 2026,ABc Ltd.</div>
             <div class="bios-line" style="animation-delay: 0.5s">&nbsp;</div>
             <div class="bios-line" style="animation-delay: 0.7s">CPU: <span class="value">Creative Engine @
                     3.6GHz</span></div>
             <div class="bios-line" style="animation-delay: 0.9s">RAM: <span class="value">Unlimited Ambition
                     Detected</span></div>
-            <div class="bios-line" style="animation-delay: 1.1s">GPU: <span class="value">Pixel Dreams RTX 4090</span>
+            <div class="bios-line" style="animation-delay: 1.1s">GPU: <span class="value">Pixel Dreams RTX 40900</span>
             </div>
             <div class="bios-line" style="animation-delay: 1.3s">&nbsp;</div>
             <div class="bios-line" style="animation-delay: 1.4s">Detecting skill modules... <span class="ok">[OK]</span>
@@ -209,79 +209,89 @@
                 <!-- FOLIAGE CARE — Flagship Project -->
                 <div class="section-item">
                     <div class="job-header">
-                        <span class="job-title"> Foliage Care — AI Plant Pathologist &amp; Digital Greenhouse</span>
+                        <span class="job-title"> Foliage Care — AI Plant Pathologist</span>
                     </div>
-                    <p style="font-size:12px; color:#888; margin: 4px 0 8px 0;">Python (FastAPI · TensorFlow/Keras) ·
-                        JavaScript (Chart.js) · Firebase · Google Gemini 2.5-Flash · Hugging Face (Pix2Pix)
-                    </p>
+                    <p style="font-size:12px; color:#888; margin: 4px 0 8px 0;">Python · FastAPI · Gemini 2.5 Flash
+                        Vision · Stable Diffusion · FLUX.1 · Firebase · Leaflet.js · JavaScript</p>
                     <ul>
-                        <li>Engineered deep learning model achieving <strong>99.27% validation accuracy</strong>
-                            classifying <strong>38 disease categories</strong> across 6 crop types (14,500+ labeled leaf
-                            images) using <strong>MobileNetV2 transfer learning</strong> (2.4M params, 9.25MB)</li>
-                        <li>Architected <strong>Explainable AI (XAI)</strong> module using <strong>TensorFlow
-                                GradientTape / Grad-CAM</strong> to generate heatmaps over infected regions (lesions,
-                            fungal spots), solving the black-box problem in automated plant pathology</li>
-                        <li>Built <strong>high-concurrency FastAPI backend</strong> achieving <strong>~500ms inference
-                                latency</strong>; integrated async request handling + LLM-based pre-inference validation
-                            that eliminated 100% of non-plant compute costs</li>
-                        <li>Designed <strong>multi-modal AI orchestration</strong> combining CNN predictions with
-                            <strong>Google Gemini 2.5-Flash</strong>, GPS, and regional context (Kharif/Rabi seasons) to
-                            deliver localized expert-level treatment plans
-                        </li>
-                        <li>Integrated <strong>Hugging Face Instruct-Pix2Pix</strong> for generative disease-progression
-                            simulations — visual forecasts of untreated plant conditions to communicate treatment
-                            urgency</li>
-
+                        <li>Built a <strong>multimodal plant disease API</strong> (FastAPI + Gemini Vision) that returns
+                            bounding-box-level diagnoses enriched with <strong>real-time weather and GPS
+                                context</strong></li>
+                        <li>Engineered a <strong>two-stage disease progression simulator</strong>: Gemini generates a
+                            season- and location-aware visual prompt from the active diagnosis, fed into a
+                            <strong>3-tier image generation fallback</strong> (SD 1.5 img2img → FLUX.1-schnell → SD 1.5
+                            txt2img) producing 7-day untreated pathology forecasts</li>
+                        <li>Designed a <strong>role-adaptive consultation system</strong> with 4 distinct prompt
+                            personas (farmer, nursery, home gardener, student) — each with separate diagnostic focus,
+                            language rules, and remedy priority ordering with a <strong>multilingual follow-up
+                                advisor</strong> supporting Hindi, English, and regional languages</li>
+                        <li>Built a <strong>real-time community disease surveillance layer</strong> using Leaflet.js +
+                            Firebase Firestore onSnapshot subscriptions — aggregating anonymized geospatial diagnoses
+                            into an <strong>interactive outbreak map</strong> with animated severity markers and
+                            per-disease filtering</li>
                     </ul>
                     <div class="tags">
                         <span class="tag">Python</span>
-                        <span class="tag">TensorFlow</span>
                         <span class="tag">FastAPI</span>
-                        <span class="tag">Grad-CAM / XAI</span>
-                        <span class="tag">Gemini LLM</span>
-                        <span class="tag">Pix2Pix</span>
+                        <span class="tag">Gemini Vision</span>
+                        <span class="tag">Stable Diffusion</span>
+                        <span class="tag">FLUX.1</span>
                         <span class="tag">Firebase</span>
-                        <span class="tag">Chart.js</span>
+                        <span class="tag">Leaflet.js</span>
+                        <span class="tag">JavaScript</span>
                     </div>
                 </div>
 
+                <!-- TERM-TRACK -->
                 <div class="section-item">
                     <div class="job-header">
-                        <span class="job-title"> Cab Booking System</span>
+                        <span class="job-title"> Term-Track — Academic Eligibility &amp; Course Management System</span>
                     </div>
+                    <p style="font-size:12px; color:#888; margin: 4px 0 8px 0;">Java · MySQL · HTML · CSS · JavaScript
+                    </p>
                     <ul>
-                        <li>Optimized a full-stack dispatch platform with real-time ride tracking and high-fidelity
-                            state management</li>
-                        <li>Engineered a dynamic pricing heuristic to adjust fares based on real-time demand-supply
-                            metrics and route complexity</li>
-                        <li>Implemented secure JWT-based authentication and restricted API access layers ensuring robust
-                            data integrity</li>
+                        <li>Built a <strong>full-stack academic platform</strong> with a dynamic course catalogue
+                            supporting real-time search and multi-axis filtering (category, difficulty, duration, credit
+                            hours) with a <strong>personalized bookmarking system</strong> for students</li>
+                        <li>Engineered an <strong>automated eligibility engine</strong> evaluating student academic
+                            records against configurable prerequisites — auto-generating Term Grant Slips for qualifying
+                            students and instantly updating approval status in the database</li>
+                        <li>Implemented <strong>3-role RBAC</strong> (student, faculty, admin) with secure session
+                            management; <strong>registered copyright (L-150404/2024)</strong> for the core eligibility
+                            algorithm</li>
                     </ul>
                     <div class="tags">
-                        <span class="tag">HTML</span>
-                        <span class="tag">CSS</span>
-                        <span class="tag">JavaScript</span>
-                        <span class="tag">JWT</span>
-                    </div>
-                </div>
-
-                <div class="section-item">
-                    <div class="job-header">
-                        <span class="job-title"> Term Track System</span>
-                    </div>
-                    <ul>
-                        <li>Architected a robust relational database schema in MySQL to handle high-concurrency course
-                            filtering and selection</li>
-                        <li>Integrated third-party academic APIs with debounced search and client-side caching for
-                            high-fidelity UX</li>
-                        <li>Developed a persistent 'Favorites' synchronization layer with relational mapping for
-                            real-time course data tracking</li>
-                    </ul>
-                    <div class="tags">
-                        <span class="tag">HTML</span>
-                        <span class="tag">CSS</span>
-                        <span class="tag">JavaScript</span>
+                        <span class="tag">Java</span>
                         <span class="tag">MySQL</span>
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">JavaScript</span>
+                    </div>
+                </div>
+
+                <!-- RECONCILE.LY -->
+                <div class="section-item">
+                    <div class="job-header">
+                        <span class="job-title"> Reconcile.ly — COD Remittance Reconciliation Tool</span>
+                    </div>
+                    <p style="font-size:12px; color:#888; margin: 4px 0 8px 0;">HTML · CSS · JavaScript · SheetJS ·
+                        Netlify</p>
+                    <ul>
+                        <li>Built a <strong>browser-based COD remittance reconciliation tool</strong> — parses CSV/XLSX
+                            files via SheetJS, matches AWB numbers across courier formats with <strong>2% short-pay
+                                tolerance</strong>, and classifies orders into Matched, Short-paid, and Missing statuses
+                            entirely client-side</li>
+                        <li>Engineered <strong>cross-currency mismatch auto-detection</strong> with configurable FX
+                            conversion, a live "Recovery Potential" metric, and a <strong>one-click Claims
+                                Generator</strong> that produces pre-filled courier dispute emails — reducing manual
+                            claim work from <strong>2 hours to 60 seconds</strong></li>
+                    </ul>
+                    <div class="tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">SheetJS</span>
+                        <span class="tag">Netlify</span>
                     </div>
                 </div>
             </div>
