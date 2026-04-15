@@ -312,8 +312,8 @@ function makeDraggable(element) {
 // ================= DOWNLOAD RESUME =================
 function downloadResume() {
     const link = document.createElement('a');
-    link.href = 'Swarom_Resume.pdf';
-    link.download = 'Swarom_Resume.pdf';
+    link.href = 'SwaromResume2.pdf';
+    link.download = 'SwaromResume2.pdf';
     link.click();
     closeAllMenus();
     closeStartMenu();
